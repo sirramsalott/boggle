@@ -1,0 +1,63 @@
+<!doctype HTML>
+<html>
+
+  <head>
+
+    <title>Boggle login</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="styles/boggleStyles.css">
+
+  </head>
+
+  <body>
+
+    <div id="pageContainer">
+      
+      <a href="index.html">
+	<img id="boggleLogo" src="images/boggleLogo.png">
+      </a>      
+
+      <a href="index.html">
+	<div class="centreForeground" style="font-size: 20px;">
+	  Go home
+	</div>
+      </a>
+
+      <div class="centreForeground">
+	
+	<h1 style="margin: 0;">Login</h1>
+      
+	<form name="login" action="cgi-bin/verifyLogin.py" method="post" id="detailsForm">
+
+	  <input type="text" name="username" value="username">
+	  <input type="password" name="password" value="password">
+	  <p id="iAmA">I am a:</p>
+	  <span class="userType">Teacher</span>
+	  <input type="radio" name="userType" value="Teacher">
+	  <span class="userType">Pupil</span>
+	  <input type="radio" name="userType" value="Pupil" checked>
+	  <input type="submit" name="submit" value="Submit">
+
+	</form>
+	
+      </div>
+
+      <div class="centreForeground">
+
+	<h3>Don't have an account?</h3>
+
+	<a href="pupilSignUp.html"><button class="signUpLink">
+	    Pupil sign up
+	</button></a>
+
+	<a href="teacherSignUp.html"><button class="signUpLink">
+	    Teacher sign up
+	</button></a>
+      
+      </div>
+
+    </div>
+      
+  </body>
+
+</html>

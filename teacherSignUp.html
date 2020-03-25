@@ -1,0 +1,56 @@
+<!doctype HTML>
+<html>
+
+  <head>
+
+    <title>Teacher sign-up</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="styles/boggleStyles.css">
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/validate.js"></script>
+    <script src="scripts/teacherSignUp.js"></script>
+
+  </head>
+
+
+  <body>
+
+    <div id="pageContainer">
+
+      <a href="index.html">
+	<img id="boggleLogo" src="images/boggleLogo.png">
+      </a>      
+
+      <a href="index.html">
+	<div class="centreForeground" style="font-size: 20px;">
+	  Go home
+	</div>
+      </a>
+
+      <div class="centreForeground">
+
+	<h2>Teacher sign-up</h2>
+
+	<form method="post" action="cgi-bin/saveUserDetails.py" name="signUp" id="signUpForm">
+	  Email address
+	  <input type="text" name="email">
+	  First Name
+	  <input type="text" name="forename">
+	  Surname
+	  <input type="text" name="surname">
+	  Username
+	  <input type="text" name="username">
+	  Password
+	  <input type="password" name="password">
+	  Confirm Password
+	  <input type="password" name="confirmPassword">
+	  <input type="button" value="Submit" onclick="validateSignUp()">
+	</form>
+	
+      </div>
+
+    </div>
+
+  </body>
+
+</html>

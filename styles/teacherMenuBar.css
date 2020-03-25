@@ -1,0 +1,54 @@
+.teacherMenuCell {
+    text-align: center;
+    width: 33%;
+    height: 80px;
+    border: white 3px solid;
+    border-radius: 8px;
+    color: white;
+    font-size: 15px;
+    background-color: #1919ba;
+}
+
+form {
+    color: white;
+    font-size: 15px;
+}
+
+#homeCell {
+    font-size: 40px;
+    color: white;
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: #1919ba;
+    text-align: center;
+    line-height: 120px;
+}
+
+#homeCell:hover {
+    background: #5555ff;
+}
+
+input[type="text"] {
+    display: block;
+}
+
+#dateInstruction {
+    font-size: 12px;
+}
+
+input[type="button"] {
+    display: inline-block;
+}
+
+input[value="Create Game"] {
+    font-size: 15px;
+    background-color: #5555ff;
+    color: white;
+    border: white 4px solid;
+    border-radius: 8px;
+}
+
+input[value="Create Game"]:hover {
+    background-color: 1919ba;
+}

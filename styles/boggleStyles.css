@@ -1,0 +1,206 @@
+* {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+body {
+    background-color: #1919ff;
+}
+
+#pageContainer {
+    width: 1000px;
+    margin: auto;
+    clear: both;
+}
+
+h1 {
+    font-size: 50px;
+    color: white;
+}
+
+p {
+    color: white;
+}
+
+h2 {
+    color: white;
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 20px;
+    color: white;
+}
+
+td {
+    vertical-align: top;
+}
+
+.centreForeground {
+    display: block;
+    margin: 3px auto;
+    width: 300px;
+    border: white 4px solid;
+    border-radius: 8px;
+    background-color: #1919ba;
+    color: white;
+    text-align: center;
+}
+
+.centreForegroundWide {
+    min-height: auto;
+    display: block;
+    margin: 3px auto;
+    width: 800px;
+    border: white 4px solid;
+    border-radius: 8px;
+    background-color: #1919ba;
+    color: white;
+    text-align: center;
+    padding: auto;
+}
+
+#iAmA {
+    margin: auto;
+    clear: both;
+    text-decoration: underline;
+    color: white;
+}
+
+.signUpLink {
+    font-size: 15px;
+    margin: 6px auto;
+    width: 150px;
+    display: block;
+    border: white 4px solid;
+    border-radius: 8px;
+    background-color: #5555ff;
+    color: white;
+    text-decoration: none;
+}
+
+.userType {
+    color: white;
+}
+
+form {
+    font-size: 20px;
+}
+
+#detailsForm {
+    width: 200px;
+    display: block;
+    margin: 0 auto;
+}
+
+#signUpForm > input {
+    clear: both;
+    display: block;
+}
+
+input {
+    margin: 3px auto;
+}
+
+input[value="Submit"] {
+    font-size: 15px;
+    display: block;
+    width: 80px;
+    background-color: #5555ff;
+    color: white;
+    border: white 4px solid;
+    border-radius: 8px;
+}
+
+input[value="Submit"]:hover {
+    background-color: 1919ba;
+}
+
+#boggleLogo {
+    display: block;
+    width: 40%;
+    margin: 0 auto;
+}
+
+a {
+    color: #f58220;
+    text-decoration: underline;
+}
+
+#homeBar {
+    font-size: 20px;
+    color: #f58220;
+}
+
+#errorMessage {
+    font-size: 20px;
+    width: 80%;
+    margin: auto;
+    font-family: monospace;
+    background-color: #ddddff;
+    color: #222255;
+    border: #222255 solid 2px;
+}
+
+th {
+    text-align: center;
+    border: white 2px solid;
+    border-radius: 4px;
+    color: white;
+    background-color: #19191ba;
+}
+
+#pupilTable {
+    margin: auto;
+}
+
+.pupilTD {
+    background-color: #ddddff;
+    border: #222255 solid 1px;
+    color: #222255;
+    text-align: center;
+}
+
+.pupilID {
+    background-color: #ddddff;
+    border: #222255 solid 1px;
+    color: #222255;
+    text-align: center;
+}
+
+button {
+    font-size: 15px;
+    display: block;
+    background-color: #5555ff;
+    color: white;
+    border: white 4px solid;
+    border-radius: 8px;
+}
+
+button:hover {
+    background-color: 1919ba;
+}
+
+form[name="signUp"] {
+    font-size: 15px;
+    text-align: center;
+}
+
+input[name="word"] {
+    float: left;
+    margin-left: 100px;
+}
+
+.addWordTable {
+    display: block;
+    border: white 2px solid;
+    height: 80px;
+}
+
+
+#addWordSuccess {
+    color: white;
+    font-size: 18px;
+    display: block;
+    width: 200px;
+}
+
