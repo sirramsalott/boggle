@@ -18,6 +18,7 @@ page = """Content-type: text/html
   <script src="../scripts/validate.js"></script>
   <script src="../scripts/newGame.js"></script>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 
@@ -50,9 +51,9 @@ page = """Content-type: text/html
          03:00
       </div>
       
-      <p>Enter words below:<br>Hit enter to submit each word</p>
+      <p id='bigScreenInstructions'>Enter words below:<br>Hit enter to submit each word</p>
       <form action="javascript:enter()">
-	<input type="text" name="enterWord">
+	<input type="text" name="enterWord" id="enterWord">
       </form>
       
       <ul id="userWords">

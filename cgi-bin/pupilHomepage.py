@@ -17,6 +17,7 @@ page = """Content-type: text/html
     <script src="../scripts/ellipses.js"></script>
     <link rel="stylesheet" type="text/css" href="../styles/boggleStyles.css">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   </head>
 
@@ -28,7 +29,7 @@ page = """Content-type: text/html
 
       <div class="centreForeground" style="height: 300px;">
 
-        <h2 align="center">Please wait while you are connected to a game</h2>
+        <h2 align="center" class="prompt">Please wait while you are connected to a game</h2>
 
         <h1 align="center" id="ellipses"></h1>
 

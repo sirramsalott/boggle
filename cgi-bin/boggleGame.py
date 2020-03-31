@@ -77,7 +77,7 @@ class Game(object):
             HTMLtable += "<tr>"
 
             for j in range(4):
-                HTMLtable += "<td class='dice'>%s</td>"%self.board[i][j]
+                HTMLtable += "<td><img src='../images/{}.png' class='dice'></img></td>\n".format(self.board[i][j])
 
             HTMLtable += "</tr>"
     
@@ -145,7 +145,7 @@ class Game(object):
 
     def players(self):
         'Retrieve all players with my gameID from the database'
-        result = getFromDatabase("SELECT pupilID FROM player WHERE gameID=%d;"%self.gameID)
+        result = getFromDatabase("SELECT pupilID FROM player WHERE gameID=%d ORDER BY score DESC;"%self.gameID)
         return [row[0] for row in result]
 
     

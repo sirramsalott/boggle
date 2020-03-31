@@ -17,6 +17,7 @@ page = """Content-type: text/html
     <script src="../scripts/scoreGame.js"></script>
     <script src="../scripts/ellipses.js"></script>
     <link rel="stylesheet" type="text/css" href="../styles/boggleStyles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   </head>
 

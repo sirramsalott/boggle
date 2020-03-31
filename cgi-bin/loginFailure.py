@@ -14,6 +14,7 @@ page = """Content-type: text/html
     <title>Login failed</title>
     <link rel="stylesheet" type="text/css" href="../styles/boggleStyles.css">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   </head>
 
@@ -25,7 +26,7 @@ page = """Content-type: text/html
 	<img id="boggleLogo" src="../images/boggleLogo.png">
       </a>      
       
-      <a href="">
+      <a href="..">
 	<div class="centreForeground" id="homeBar">
 	  Go home
 	</div>
