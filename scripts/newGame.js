@@ -20,6 +20,13 @@ function enter(){
 	};
 };
 
+function finishGame(){
+	clearInterval(GlobalTimer);
+	$("input[name='enterWord']").attr("readonly", "true");
+	$("form[name=submitGame]").submit();
+	$("body").html(submitPage);
+}
+
 function tick(){
     var timer = $( "#timer" );
     var time = unformatTime( timer.html() );
@@ -30,10 +37,7 @@ function tick(){
 	if (time < 21){timer.css("background-color", "#ff0000");}
     }
     else {
-	clearInterval(GlobalTimer);
-	$("input[name='enterWord']").attr("readonly", "true");
-	$("form[name=submitGame]").submit();
-	$("body").html(submitPage);
+	finishGame();
     };
 };
 

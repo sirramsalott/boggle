@@ -59,6 +59,7 @@ page = """Content-type: text/html
       <ul id="userWords">
       </ul>
 
+      <input type="button" value="Finish Early" onclick="finishGame()" id="finishEarly">
     </div>
 
 
