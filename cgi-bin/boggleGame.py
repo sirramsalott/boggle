@@ -77,7 +77,7 @@ class Game(object):
             HTMLtable += "<tr>"
 
             for j in range(4):
-                HTMLtable += "<td><img src='../images/{}.png' class='dice'></img></td>\n".format(self.board[i][j])
+                HTMLtable += "<td><img src='../images/{}.png' class='dice'></td>\n".format(self.board[i][j])
 
             HTMLtable += "</tr>"
     

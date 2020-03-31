@@ -71,3 +71,7 @@ p {
 .centerForegroundWide {
     width: 999px !important;
 }
+
+.onlyMine {
+    color: #ff9900;
+}
