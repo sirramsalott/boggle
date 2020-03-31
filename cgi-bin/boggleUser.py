@@ -365,8 +365,13 @@ class Player(object):
     def wordScore(self, wordRow, otherWords):
         'Score a word based on its length ("qu" only counts as one letter) and whether it is unique to me'
         if wordRow[1] == "True":
-            return len(wordRow[0]) - 1 - ("q" in wordRow[0]) -  (wordRow[0] in otherWords)
-        
+            word = wordRow[0]
+            return len(word) - 1 \
+                             - ('q' in word) \
+                             - (word in otherWords or \
+                                word + "s" in otherWords or \
+                                (word[-1] == "s" and \
+                                 word[:-1] in otherWords))
         else:
             return 0
 
