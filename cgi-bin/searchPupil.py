@@ -64,9 +64,8 @@ try:
     searchBy = post["pupilDataType"].value
     searchData = post["pupilSearchData"].value.lower()
     
-    result = getFromDatabase("SELECT DISTINCT pupil.pupilID \
-                              FROM pupil, teaches \
-                              WHERE LOWER(%s)='%s' AND teacherID=%d;"%(searchBy, searchData, teacherID))
+    result = getFromDatabase("SELECT DISTINCT pupilID FROM pupil \
+                              WHERE LOWER(%s)='%s';"%(searchBy, searchData))
     pupilList = [Pupil(pupilID=row[0]) for row in result]
     
     for i in range(len(pupilList)):
