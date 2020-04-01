@@ -21,13 +21,11 @@ CREATE TABLE teacher
 CREATE TABLE pupil
 (
   pupilID INT AUTO_INCREMENT,
-  teacherID INT NOT NULL,
   forename VARCHAR(16),
   surname VARCHAR(16),
   username VARCHAR(16) UNIQUE NOT NULL,
   waitingForGame ENUM("True", "False"),
-  PRIMARY KEY (pupilID),
-  FOREIGN KEY (teacherID) REFERENCES teacher(teacherID)
+  PRIMARY KEY (pupilID)
 );
 
 CREATE TABLE game
@@ -76,6 +74,15 @@ CREATE TABLE playerWord
   FOREIGN KEY (pupilID) REFERENCES pupil(pupilID),
   FOREIGN KEY (gameID) REFERENCES game(gameID),
   FOREIGN KEY (wordID) REFERENCES word(wordID)
+);
+
+CREATE TABLE teaches
+(
+  pupilID INT NOT NULL,
+  teacherID INT NOT NULL,
+  PRIMARY KEY (pupilID, teacherID),
+  FOREIGN KEY (pupilID) REFERENCES pupil(pupilID),
+  FOREIGN KEY (teacherID) REFERENCES teacher(teacherID)
 );
 
 GRANT ALL ON boggle.* TO "joe"@"localhost";

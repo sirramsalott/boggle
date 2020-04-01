@@ -57,13 +57,8 @@ try:
     
     else:
         raise Exception("You do not have permission to view this page")
-        
-        
-    pupil = Pupil(pupilID=pupilID)
-    
-    if pupil.teacherID != teacherID:
-        raise Exception("You do not have permission to view this page")
 
+    pupil = Pupil(pupilID=pupilID)
     playerList = pupil.players()
     
     if not teacherID is None:

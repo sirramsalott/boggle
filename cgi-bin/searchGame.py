@@ -67,7 +67,8 @@ try:
     sql = """SELECT DISTINCT game.gameID FROM game
              INNER JOIN player ON game.gameID=player.gameID
              INNER JOIN pupil ON player.pupilID=pupil.pupilID
-             WHERE game.dateStarted='%s' AND pupil.teacherID=%d;"""
+             INNER JOIN teaches ON pupil.pupilID=teaches.pupilID
+             WHERE game.dateStarted='%s' AND teaches.teacherID=%d;"""
     
     result = getFromDatabase(sql%(dateStarted, teacherID))
     gameList = [Game(row[0]) for row in result]

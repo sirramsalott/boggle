@@ -10,8 +10,11 @@ try:
     post = cgi.FieldStorage()
     teacherID = post["teacherID"].value
     
-    result = getFromDatabase("""SELECT pupilID FROM pupil WHERE teacherID='%s' 
-                                AND waitingForGame='True' ORDER BY pupilID;"""%teacherID)
+    result = getFromDatabase("""SELECT pupil.pupilID FROM pupil, teaches
+                                WHERE teaches.teacherID='%s'
+                                AND pupil.pupilID=teaches.pupilID
+                                AND waitingForGame='True'
+                                ORDER BY pupil.pupilID;"""%teacherID)
     pupils = [Pupil(pupilID=row[0]) for row in result]
     
     pupilsTable = """<tr id='pupilTable'>

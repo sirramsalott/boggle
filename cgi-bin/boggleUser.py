@@ -71,16 +71,13 @@ class User(object):
 
 
 class Pupil(User):
-    'Pupil class'
 
-
-    def __init__(self, teacherID=None, username=None, forename=None, surname=None, pupilID = None):
+    def __init__(self, username=None, forename=None, surname=None, pupilID = None):
         """Constructor for pupil. Pass pupilID or username explicitly when reading existing user from database.
         Otherwise pass all parameters explicitly if creating new pupil"""
 
-        if teacherID and username and forename and surname: #Create new Pupil from cgi.FieldStorage
+        if username and forename and surname: #Create new Pupil from cgi.FieldStorage
             self.waitingForGame = False
-            self.teacherID = teacherID
             self.pupilID = pupilID #None, but added for integrity of objects
             super(Pupil, self).__init__(forename, surname, username)
 
@@ -99,13 +96,12 @@ class Pupil(User):
                 if pupilID:
                     self.pupilID = pupilID
 
-            result = getFromDatabase("""SELECT teacherID, forename, surname, username, waitingForGame 
+            result = getFromDatabase("""SELECT forename, surname, username, waitingForGame 
                                          FROM pupil WHERE pupilID=%d;"""%self.pupilID)
             if len(result) > 0:
                 dbPupil = result[0]
-                self.teacherID = dbPupil[0]
-                self.waitingForGame = dbPupil[4] == "True"
-                super(Pupil, self).__init__(dbPupil[1], dbPupil[2], dbPupil[3])
+                self.waitingForGame = dbPupil[3] == "True"
+                super(Pupil, self).__init__(dbPupil[0], dbPupil[1], dbPupil[2])
             
             else:
                 raise Exception("User not found")
@@ -190,8 +186,6 @@ class Pupil(User):
 
 
 class Teacher(User):
-    'Teacher class'
-
 
     def __init__(self, email=None, username=None, forename=None, surname=None, teacherID=None):
         """Constructor for teacher. Pass username explicitly if reading from database.
