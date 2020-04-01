@@ -15,7 +15,6 @@ CREATE TABLE teacher
   email VARCHAR(32),
   forename VARCHAR(16),
   surname VARCHAR(16),
-  password VARCHAR(100),
   PRIMARY KEY (teacherID)
 );
 
@@ -26,7 +25,6 @@ CREATE TABLE pupil
   forename VARCHAR(16),
   surname VARCHAR(16),
   username VARCHAR(16) UNIQUE NOT NULL,
-  password VARCHAR(100),
   waitingForGame ENUM("True", "False"),
   PRIMARY KEY (pupilID),
   FOREIGN KEY (teacherID) REFERENCES teacher(teacherID)

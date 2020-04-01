@@ -54,14 +54,12 @@ try:
         newUser = Teacher(post["email"].value,
                           post["username"].value,
                           post["forename"].value,
-                          post["surname"].value,
-                          post["password"].value)
+                          post["surname"].value)
     else:
         newUser = Pupil(int(post["teacherID"].value),
                         post["username"].value,
                         post["forename"].value,
-                        post["surname"].value,
-                        post["password"].value)
+                        post["surname"].value)
         
         
     successMessage = newUser.save()

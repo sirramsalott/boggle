@@ -71,11 +71,6 @@ try:
                 
             else:
                 raise e
-                
-        else:
-            if not user.verifyLogin(post["password"].value):
-                target = "loginFailure.py"
-                outgoingData = "Password incorrect"
 
     else:
         target = "loginFailure.py"

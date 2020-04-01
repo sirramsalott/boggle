@@ -1,5 +1,4 @@
 #!/usr/bin/python
-from passlib.hash import pbkdf2_sha256 as passHash #password hashing algorithm - gives hash of 119 characters with no parameters
 import MySQLdb, sys
 sys.path.append("/var/www/cgi-bin")
 from boggleGame import unPickleWordTree, getFromDatabase, sendToDatabase, existsInDatabase, checkIfWord
@@ -10,13 +9,11 @@ from wordTree import WordNode
 class User(object):
     'Super class for any user'
 
-    def __init__(self, forename, surname, username, password):
+    def __init__(self, forename, surname, username):
         'Constructor for general user'
         self.forename = forename
         self.surname = surname
         self.username = username
-        self.password = password
-        
 
     def insertCommand(self):
         'Create SQL command to insert this user to the database, using reflection'
@@ -40,12 +37,6 @@ class User(object):
                     sqlB += "'" + attrDict[key] + "', "
         
         return sqlA[:-2] + ") " + sqlB[:-2] + ");"
-
-
-    def verifyLogin(self, password):
-        'Verify that entered password hashes to same value as the password in the database'
-        return passHash.verify(password, self.password)
-
 
     def save(self):
         'Insert this user into the database. Returns whether this was successful'
@@ -83,15 +74,15 @@ class Pupil(User):
     'Pupil class'
 
 
-    def __init__(self, teacherID=None, username=None, forename=None, surname=None, password=None, pupilID = None):
+    def __init__(self, teacherID=None, username=None, forename=None, surname=None, pupilID = None):
         """Constructor for pupil. Pass pupilID or username explicitly when reading existing user from database.
         Otherwise pass all parameters explicitly if creating new pupil"""
 
-        if teacherID and username and forename and surname and password: #Create new Pupil from cgi.FieldStorage
+        if teacherID and username and forename and surname: #Create new Pupil from cgi.FieldStorage
             self.waitingForGame = False
             self.teacherID = teacherID
             self.pupilID = pupilID #None, but added for integrity of objects
-            super(Pupil, self).__init__(forename, surname, username, passHash.encrypt(password))
+            super(Pupil, self).__init__(forename, surname, username)
 
         else: #Create Pupil from database
             if username: 
@@ -108,13 +99,13 @@ class Pupil(User):
                 if pupilID:
                     self.pupilID = pupilID
 
-            result = getFromDatabase("""SELECT teacherID, forename, surname, username, password, waitingForGame 
+            result = getFromDatabase("""SELECT teacherID, forename, surname, username, waitingForGame 
                                          FROM pupil WHERE pupilID=%d;"""%self.pupilID)
             if len(result) > 0:
                 dbPupil = result[0]
                 self.teacherID = dbPupil[0]
-                self.waitingForGame = dbPupil[5] == "True"
-                super(Pupil, self).__init__(dbPupil[1], dbPupil[2], dbPupil[3], dbPupil[4])
+                self.waitingForGame = dbPupil[4] == "True"
+                super(Pupil, self).__init__(dbPupil[1], dbPupil[2], dbPupil[3])
             
             else:
                 raise Exception("User not found")
@@ -202,14 +193,14 @@ class Teacher(User):
     'Teacher class'
 
 
-    def __init__(self, email=None, username=None, forename=None, surname=None, password=None, teacherID=None):
+    def __init__(self, email=None, username=None, forename=None, surname=None, teacherID=None):
         """Constructor for teacher. Pass username explicitly if reading from database.
         If not, pass all parameters explicitly"""
 
-        if email and username and forename and surname and password: #Create new Teacher from cgi.FieldStorage
+        if email and username and forename and surname: #Create new Teacher from cgi.FieldStorage
             self.email = email
             self.teacherID = teacherID #None, but added for integrity of objects
-            super(Teacher, self).__init__(forename, surname, username, passHash.encrypt(password))
+            super(Teacher, self).__init__(forename, surname, username)
 
         else: #Create Teacher from databse
             
@@ -227,12 +218,12 @@ class Teacher(User):
                 if teacherID:
                     self.teacherID = teacherID
 
-            sql = """SELECT email, forename, surname, username, password
+            sql = """SELECT email, forename, surname, username
                      FROM teacher WHERE teacherID=%s;"""%self.teacherID
             if existsInDatabase(sql):
                 result = getFromDatabase(sql)[0]
                 self.email = result[0]
-                super(Teacher, self).__init__(result[1], result[2], result[3], result[4])
+                super(Teacher, self).__init__(result[1], result[2], result[3])
                 
             else:
                 raise Exception("User not found")
