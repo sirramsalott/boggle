@@ -15,6 +15,8 @@ page = """Content-type: text/html
     <title>Pupil Data</title>
     <link rel="stylesheet" type="text/css" href="../styles/boggleStyles.css">
     <link rel="stylesheet" type="text/css" href="../styles/searchAndView.css">
+    <script src="../scripts/jquery.js"></script>
+    <script src="../scripts/viewPupil.js"></script>
 
   </head>
 
@@ -69,8 +71,8 @@ try:
 
     body += "<div class='centreForegroundWide' style='overflow: hidden'>"
         
-    body += "<h1>Pupil Data: %s %s </h1>"%(pupil.forename, pupil.surname)
-    body += "<div class='objectContainer' style='margin-left: 34px;'>" + pupil.pupilToHTML() + "</div>"
+    body += "<h1>Pupil: %s %s </h1>"%(pupil.forename, pupil.surname)
+    body += "<div class='objectContainer' style='margin-left: 34px;'>" + pupil.pupilToHTML(teacherID) + "</div>"
     body += "<table id='objectTable'>"
 
     for i in range(len(playerList)):

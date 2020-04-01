@@ -182,6 +182,9 @@ class Pupil(User):
         element += "<p>Games won: " + str(self.numOfGamesWon()) + "</p>"
         element += "<p>Average Score: " + str(self.averageScore()) + "</p>"
 
+        if not teacherID is None:
+            element += "<table><tr><td><button value='adopt' onclick='adoptPupil({})'>Adopt</button></td><td id='adoptMsg'></td></tr></table>".format(self.pupilID)
+
         return element
 
 
