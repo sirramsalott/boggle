@@ -43,7 +43,6 @@ class User(object):
         successMessage = "Sign-up successful, please <a href='..'>log in</a>."
 
         sql = self.insertCommand()
-        
         try:
             sendToDatabase(sql)
 
@@ -105,6 +104,12 @@ class Pupil(User):
             
             else:
                 raise Exception("User not found")
+
+
+    def save(self):
+        msg = super(Pupil, self).save()
+        self.pupilID = getFromDatabase("SELECT pupilID FROM pupil WHERE username='{}';".format(self.username))[0][0]
+        return msg
 
 
     def generateTR(self):
@@ -186,6 +191,10 @@ class Pupil(User):
             element += "<table><tr><td><button value='adopt' onclick='adoptPupil({})'>Adopt</button></td><td id='adoptMsg'></td></tr></table>".format(self.pupilID)
 
         return element
+
+    def addTeacher(self, teacherID):
+        sendToDatabase("INSERT INTO teaches (pupilID, teacherID) \
+                        VALUES ({}, {});".format(self.pupilID, teacherID))
 
 
 class Teacher(User):

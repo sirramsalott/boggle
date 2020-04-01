@@ -49,20 +49,21 @@ page = """Content-type: text/html
 
 try:
     post = cgi.FieldStorage()
-    
-    if "email" in post:
+    isTeacher = "email" in post
+
+    if isTeacher:
         newUser = Teacher(post["email"].value,
                           post["username"].value,
                           post["forename"].value,
                           post["surname"].value)
     else:
-        newUser = Pupil(int(post["teacherID"].value),
-                        post["username"].value,
+        newUser = Pupil(post["username"].value,
                         post["forename"].value,
                         post["surname"].value)
-        
-        
+
     successMessage = newUser.save()
+    if not isTeacher:
+        newUser.addTeacher(post["teacherID"].value)
     
     print page%successMessage
 
