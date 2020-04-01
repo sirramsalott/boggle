@@ -30,7 +30,7 @@
       
 	<form name="login" action="cgi-bin/verifyLogin.py" method="post" id="detailsForm">
 
-	  <input type="text" name="username" value="username">
+	  <input type="text" name="username" value="username" onfocus="if(this.value=='username') this.value = '';">
 	  <p id="iAmA">I am a:</p>
 	  <span class="userType">Teacher</span>
 	  <input type="radio" name="userType" value="Teacher">
