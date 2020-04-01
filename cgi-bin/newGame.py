@@ -42,6 +42,16 @@ page = """Content-type: text/html
         %s
       </table>
 
+      <table id="activeWordBuildingArea">
+        <tr>
+          <td id='activeWordCell'></td>
+          <td class='activeWordButtonCell'><img src='../images/yes.png' class='activeWordButtonImage' onclick='acceptWord()'></td>
+          <td class='activeWordButtonCell'><img src='../images/no.png' class='activeWordButtonImage' onclick='discardWord()'></td>
+        </tr>
+      </table>
+
+      <p id='smallScreenInstructions'>Tap letters to build words. To submit a word tap the green tick. To discard tap the red tick. To discard only the last letter you selected, tap that dice again.</p>
+
     </div>
 
 

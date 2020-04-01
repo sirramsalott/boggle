@@ -75,6 +75,10 @@
 	width: auto;
 	margin: 4px;
 	height: 80%;
+	list-style-type: none;
+	list-style-position: inside;
+	padding: 0;
+	margin: 0;
     }
 }
 
@@ -82,4 +86,35 @@
     #finishEarly {
 	display: none;
     }
+}
+
+#activeWordBuildingArea {
+    width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    #activeWordBuildingArea {
+	display: none;
+    }
+}
+
+#activeWordCell {
+    width: 58%;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 8vw;
+    color: #ff9900;
+    background-color: #7a77e1;
+    font-weight: bolder;
+    border: white 3px solid;
+    border-radius: 6px;
+}
+
+.activeWordButtonCell {
+    width: 15%;
+}
+
+.activeWordButtonImage {
+    max-width: 100%;
+    height: auto;
 }
