@@ -4,10 +4,10 @@ function validateSignUp(){
     var surname = $("input[name='surname']").val();
     var username = $("input[name='username']").val();
     
-    if (! validEmail(email) && email.length < 33){
+/*    if (! validEmail(email) && email.length < 33){
 	alert("Please enter a valid email address using 32 characters or fewer");
     }
-    else if (! (notEmptyLettersOnly(forename) && forename.length < 17)){
+    else*/ if (! (notEmptyLettersOnly(forename) && forename.length < 17)){
 	alert("Please enter your first name as letters only, using no more than 16 characters");
     }
     else if (! (notEmptyLettersOnly(surname) && surname.length < 17)){
