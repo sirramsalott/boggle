@@ -68,5 +68,8 @@ try:
     print page%successMessage
 
 except Exception as e:
-    page = errorPage()
-    print page%("", str(e))
+    if e[0] == 1452:
+        print page%("A key constraint failed. If you signed up as a pupil this is probably because teacher {} does not exist. Get your teacher to find you from their control panel".format(post["teacherID"].value))
+    else:
+        page = errorPage()
+        print page%("", str(e))
