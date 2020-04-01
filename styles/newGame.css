@@ -1,29 +1,33 @@
-#titleBar {
-    width: 1000px;
-    clear: both;
-    margin: auto;
-}
-
 #board {
     float: left;
 }
 
+@media screen and (max-width: 768px) {
+    #board {
+	width: 80%;
+    }
+}
+
+
 .dice {
-    display: inline-block;
-    background-color: #ffff99;
-    font-size: 95px;
     width: 120px;
-    height: 120px;
-    border: #dddd77 solid 5px;
-    border-radius: 12px;
-    text-align: center;
-    margin: 4px;
-    font-family: Arial;
+}
+
+@media screen and (max-width: 768px) {
+    .dice {
+	width: 100%;
+    }
 }
 
 #userInfo {
-    float: right;
+    float: left;
     width: 300px;
+}
+
+@media screen and (max-width: 768px) {
+    #userinfo {
+	width: 20%;
+    }
 }
 
 #timer {
@@ -37,8 +41,24 @@
     margin: 10px;
 }
 
-#textBox {
-    margin: 10px;
+@media screen and (max-width: 768px) {
+    #timer {
+	width: auto;
+	font-size: 5vw;
+	margin: 2px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #enterWord {
+	display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #bigScreenInstructions {
+	display: none;
+    }
 }
 
 #userWords {
@@ -48,4 +68,18 @@
     height: 400px;
     margin: 10px;
     overflow: auto;
+}
+
+@media screen and (max-width: 768px) {
+    #userWords {
+	width: auto;
+	margin: 4px;
+	height: 80%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #finishEarly {
+	display: none;
+    }
 }

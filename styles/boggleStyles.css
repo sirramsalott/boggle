@@ -7,7 +7,7 @@ body {
 }
 
 #pageContainer {
-    width: 1000px;
+    width: auto;
     margin: auto;
     clear: both;
 }
@@ -46,6 +46,12 @@ td {
     text-align: center;
 }
 
+@media screen and (max-width: 768px) {
+    .centreForeground {
+	width: auto;
+    }
+}
+
 .centreForegroundWide {
     min-height: auto;
     display: block;
@@ -57,6 +63,12 @@ td {
     color: white;
     text-align: center;
     padding: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .centreForegroundWide {
+	width: auto;
+    }
 }
 
 #iAmA {
@@ -117,8 +129,14 @@ input[value="Submit"]:hover {
 
 #boggleLogo {
     display: block;
-    width: 40%;
+    width: 300px;
     margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+    #boggleLogo {
+	width: auto;
+    }
 }
 
 a {
@@ -203,4 +221,3 @@ input[name="word"] {
     display: block;
     width: 200px;
 }
-

@@ -16,6 +16,7 @@ page = """Content-type: text/html
     <title> View Game %d </title>
     <link rel="stylesheet" type="text/css" href="../styles/boggleStyles.css">
     <link rel="stylesheet" type="text/css" href="../styles/searchAndView.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   </head>
 
@@ -68,7 +69,7 @@ try:
         body += "<a href='/'><div class='centreForeground' style='font-size: 20px;'>Go home</div></a>"
         
     body += "<div class='centreForegroundWide' style='overflow: hidden'>"
-    body += "<h1>Game Data For Game #" + str(gameID) + "</h1>"
+    body += "<h1>Game #" + str(gameID) + "</h1>"
     body += "<div class='objectContainer'>" + game.gameToHTML(teacherID) + game.wordTable() + "</div>"
     
     playerList = [Player(playerID, gameID, True) for playerID in game.players()]
@@ -78,7 +79,7 @@ try:
         if i % 3 == 0:
             body += "<tr>"
             
-        body += "<td class='objectContainer'>" + playerList[i].pupilToHTML(teacherID) + "</td>"
+        body += "<td class='playerContainer'>" + playerList[i].pupilToHTML(teacherID) + "</td>"
             
         if i % 3 == 2 or i == len(playerList) - 1:
             body += "</tr>"

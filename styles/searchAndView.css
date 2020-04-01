@@ -9,6 +9,12 @@
     font-size: 18px;
 }
 
+@media screen and (max-width: 768px) {
+    .objectContainer {
+	width: 50%;
+    }
+}
+
 .objectTable {
     float: right;
     margin: 3px;
@@ -34,12 +40,20 @@
 }
 
 .playerContainer {
+    float: left;
+    margin: 3px;
     text-align: center;
-    font-family: Arial;
     display: block;
-    background-color: #ffff99;
-    border: #222255 solid 1px;
-    border-radius: 2px;
+    background-color: #222255;
+    border: white 4px solid;
+    border-radius: 6px;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 768px) {
+    .playerContainer {
+	width: 90%;
+    }
 }
 
 .wordList {
@@ -56,4 +70,8 @@ p {
 
 .centerForegroundWide {
     width: 999px !important;
+}
+
+.onlyMine {
+    color: #ff9900;
 }

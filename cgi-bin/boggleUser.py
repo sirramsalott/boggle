@@ -351,8 +351,8 @@ class Player(object):
             if i % 2 == 0:
                 table += "<tr>"
 
-            score = self.wordScore(wordList[i], otherWords)
-            table += "<td class='wordCell'>" + wordList[i][0] + "</td>"
+            score = self.wordScore(wordList[i], wordList, otherWords)
+            table += "<td class='wordCell" + (" onlyMine" if (wordList[i][0], "True") not in otherWords else "") + "'>" + wordList[i][0] + "</td>"
             table += "<td class='wordCell'>%d</td>"%score
 
             if i % 2 == 1 or i == len(wordList) - 1:
@@ -362,9 +362,9 @@ class Player(object):
         return table
 
 
-    def wordScore(self, wordRow, otherWords):
+    def wordScore(self, wordRow, myWords, otherWords):
         'Score a word based on its length ("qu" only counts as one letter) and whether it is unique to me'
-        if wordRow[1] == "True":
+        if wordRow[1] == "True" and not (wordRow[0] + 's', "True") in myWords:
             word = wordRow[0]
             return len(word) - 1 \
                              - ('q' in word) \
@@ -383,7 +383,7 @@ class Player(object):
         score = 0
         
         for wordRow in myWords:
-            score += self.wordScore(wordRow, otherWords)
+            score += self.wordScore(wordRow, myWords, otherWords)
             
         sendToDatabase("UPDATE player SET score=%d WHERE pupilID=%d AND gameID=%d;"%(score, self.pupilID, self.gameID))
 
