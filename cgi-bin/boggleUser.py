@@ -352,7 +352,7 @@ class Player(object):
                 table += "<tr>"
 
             score = self.wordScore(wordList[i], wordList, otherWords)
-            table += "<td class='wordCell" + (" onlyMine" if (wordList[i][0], "True") not in otherWords else "") + "'>" + wordList[i][0] + "</td>"
+            table += "<td class='wordCell" + (" onlyMine" if wordList[i][0] not in otherWords else "") + "'>" + wordList[i][0] + "</td>"
             table += "<td class='wordCell'>%d</td>"%score
 
             if i % 2 == 1 or i == len(wordList) - 1:
