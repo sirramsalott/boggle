@@ -15,6 +15,7 @@ page = """Content-type: text/html
     <meta charset='UTF-8'>
     <link rel="stylesheet" type="text/css" href="../styles/boggleStyles.css">
     <link rel="stylesheet" type="text/css" href="../styles/searchAndView.css">
+    <script src="../scripts/viewPupil.js"></script>
 
   </head>
 
