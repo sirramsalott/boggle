@@ -79,3 +79,8 @@ p {
 #adoptMsg {
     color: #ddddff;
 }
+
+#playAgainButton {
+    margin: auto;
+    display: block;
+}

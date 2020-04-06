@@ -86,7 +86,18 @@ try:
         if i % 3 == 2 or i == len(playerList) - 1:
             body += "</tr>"
             
-    body += "</table></div>"
+    body += "</table>"
+
+    if "pupilID" in post:
+         body += """
+                 <form method="post" action="pupilHomepage.py" class="playAgain">
+                   <input type="hidden" name="successData" value="{}">
+                   <button type="submit" name="playAgainButton" id="playAgainButton">
+                     Play again
+                   </button>
+                 </form>
+""".format(post["pupilID"].value)
+    body += "</div>"
 
     print page%(gameID, body)
 
