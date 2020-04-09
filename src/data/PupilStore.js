@@ -25,13 +25,10 @@ class PupilStore extends ReduceStore {
                    "date": new Date().getTime(),
                   },
                   function(data) {
-                      console.log("asked");
-                      success = data.split(":");
+                      const success = data.split(":");
                       if (success[0]=="Found") {
-                          console.log('yee');
                           resolve(success[1]);
                       } else {
-                          console.log('nein');
                           resolve(undefined);
                       }
                   });
@@ -57,8 +54,8 @@ class PupilStore extends ReduceStore {
 
         case PupilActionTypes.TICK:
             if (state.textBox && state.time % 3 == 0) {
-                this.askForGame(state.textBox).then((t) => {
-                    console.log("done");
+                this.askForGame(state.textBox).then((gameID) => {
+                    console.log(gameID);
                 });
             }
             return {
