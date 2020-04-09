@@ -1,3 +1,5 @@
 *.pyc
 *~
 \#*
+scripts/pupil.js
+node_modules
