@@ -1,8 +1,8 @@
 #!/usr/bin/python
-import cgi, sys, MySQLdb
+import cgi, sys, MySQLdb, Cookie
 
 
-def checkUserExists(username, userType):
+def getUserID(username, userType):
     try:
         database = MySQLdb.connect("localhost", "joe", "joesql", "boggle")
         database.autocommit(True)
@@ -23,9 +23,17 @@ def checkUserExists(username, userType):
 if __name__ == '__main__':
     try:
         post = cgi.FieldStorage()
+        userType = post["userType"].value
+        userID = getUserID(username=post["username"].value,
+                           userType=userType)
+
+        if userID and userType == "Pupil":
+            c = Cookie.SimpleCookie()
+            c["pupilID"] = str(userID)
+            print(c)
+
         print("Content-Type: text/html\n")
-        print(checkUserExists(username=post["username"].value,
-                              userType=post["userType"].value))
+        print(userID)
     except Exception as e:
         print(str(e))
 
