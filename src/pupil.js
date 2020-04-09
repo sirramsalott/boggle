@@ -1,4 +1,5 @@
+import PupilContainer from './containers/PupilContainer';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(<div>Hello world</div>, document.getElementById("test"));
+ReactDOM.render(<PupilContainer/>, document.getElementById("page"));
