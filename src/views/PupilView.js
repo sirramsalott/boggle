@@ -1,11 +1,12 @@
 import React from 'react';
+import Timer from '../utils/timer';
 
 function PupilView(props) {
     return(
         <div>
           <input
              type="text"
-             value={props.textBox}
+             value={props.textBox || ''}
              onChange={(e) => props.onTextChange(e.target.value)}
           />
           <input
@@ -14,8 +15,14 @@ function PupilView(props) {
           />
           <ul id="list">
             {[...props.listItems.map(v => <li key={v.key}>{v.val}</li>)]}
-          </ul>  
+          </ul>
+
+          <p>{props.time}</p>
+
+          <Timer {...props} />
+
         </div>
+
     );
 }
 

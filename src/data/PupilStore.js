@@ -11,7 +11,8 @@ class PupilStore extends ReduceStore {
     getInitialState() {
 	return {
             listItems: Immutable.List(),
-            textBox: ''
+            textBox: '',
+            time: 0,
         };
     }
 
@@ -21,13 +22,22 @@ class PupilStore extends ReduceStore {
 	    return {
                 listItems: state.listItems.push({val: state.textBox,
                                                  key: state.listItems.size}),
-                textBox: ''
+                textBox: '',
+                time: state.time,
             };
 
         case PupilActionTypes.TEXT_CHANGE:
             return {
                 listItems: state.listItems,
-                textBox: action.text
+                textBox: action.text,
+                time: state.time,
+            };
+
+        case PupilActionTypes.TICK:
+            return {
+                listItems: state.listItems,
+                textBox: action.text,
+                time: state.time + 1,
             };
 
 	default:

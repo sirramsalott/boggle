@@ -11,8 +11,10 @@ function getState() {
     return {
 	listItems: PupilStore.getState().listItems,
         textBox: PupilStore.getState().textBox,
+        time: PupilStore.getState().time,
         onClick: PupilActions.click,
-        onTextChange: PupilActions.textChange
+        onTextChange: PupilActions.textChange,
+        onTick: PupilActions.tick,
     };
 }
 

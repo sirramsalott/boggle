@@ -12,7 +12,12 @@ const Actions = {
             type: PupilActionTypes.TEXT_CHANGE,
             text
         });
-    }
+    },
+    tick() {
+        PupilDispatcher.dispatch({
+            type: PupilActionTypes.TICK
+        });
+    },
 };
 
 export default Actions;
