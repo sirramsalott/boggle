@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Timer extends React.Component {
+class Ticker extends React.Component {
     constructor(props) {
         super(props);
         this.tick = this.tick.bind(this);
@@ -13,7 +13,7 @@ class Timer extends React.Component {
     componentWillUnmount() {
         clearInterval(this.interval);
     }
-      
+
     tick() {
         this.props.onTick();
     }
@@ -24,4 +24,4 @@ class Timer extends React.Component {
 
 };
 
-export default Timer;
+export default Ticker;

@@ -1,20 +1,15 @@
 import PupilView from '../views/PupilView';
+import ProgressStore from '../data/ProgressStore';
 import {Container} from 'flux/utils';
-import PupilStore from '../data/PupilStore';
-import PupilActions from '../data/PupilActions';
+import TickerActions from '../data/TickerActions';
 
 function getStores() {
-    return [PupilStore];
+    return [ProgressStore];
 }
 
 function getState() {
     return {
-	listItems: PupilStore.getState().listItems,
-        textBox: PupilStore.getState().textBox,
-        time: PupilStore.getState().time,
-        onClick: PupilActions.click,
-        onTextChange: PupilActions.textChange,
-        onTick: PupilActions.tick,
+        onTick: TickerActions.tick,
     };
 }
 
