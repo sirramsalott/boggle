@@ -15,7 +15,8 @@ class ProgressStore extends ReduceStore {
 
     getInitialState() {
         return {
-            gameState: GameStates.WAITING_FOR_GAME
+            gameState: GameStates.WAITING_FOR_GAME,
+            gameSecondsRemaining: 180
         }
     }
 
@@ -23,7 +24,7 @@ class ProgressStore extends ReduceStore {
         switch (state.gameState) {
         case GameStates.WAITING_FOR_GAME:
             if (time % 3 == 0) {
-                ServerDAO.getWaitingGame(1).
+                ServerDAO.getWaitingGame(sessionStorage.getItem('pupilID')).
                     then((g) => {
                         if (g && g.found) {
                             ProgressActions.startGame(g);
@@ -31,6 +32,15 @@ class ProgressStore extends ReduceStore {
                     });
             }
             return state;
+
+        case GameStates.PLAYING_GAME:
+            if (state.gameSecondsRemaining == 1) {
+                return {gameState: GameStates.SUBMITTING,
+                        gameSecondsRemaining: 0};
+            } else {
+                return {gameState: state.gameState,
+                        gameSecondsRemaining: state.gameSecondsRemaining - 1};
+            }
         default:
             return state;
         }
@@ -42,7 +52,8 @@ class ProgressStore extends ReduceStore {
             return this.handleTick(state, action.time);
             
         case ProgressActionTypes.START_GAME:
-            return {gameState: GameStates.PLAYING_GAME};
+            return {gameState: GameStates.PLAYING_GAME,
+                    gameSecondsRemaining: state.gameSecondsRemaining};
 
         default:
             return state;

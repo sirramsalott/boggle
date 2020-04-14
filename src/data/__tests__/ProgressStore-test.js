@@ -33,7 +33,8 @@ describe('ProgressStore', function() {
 
     it('initialises with correct state', function() {
         expect(ProgressStore.getState()).
-            toMatchObject({gameState: GameStates.WAITING_FOR_GAME});
+            toMatchObject({gameState: GameStates.WAITING_FOR_GAME,
+                           gameSecondsRemaining: 180});
     });
 
     it('registers a callback with dispatcher', function() {
@@ -72,6 +73,35 @@ describe('ProgressStore', function() {
                   data: {game: 'doesnt matter'}});
         expect(ProgressStore.getState()).
             toMatchObject({gameState: GameStates.PLAYING_GAME});
+    });
+
+    it('seconds remaining decrease on tick', function() {
+        dispatch({type: ProgressActionTypes.START_GAME,
+                  data: {game: 'doesnt matter'}});
+        ProgressStore.gameState = GameStates.PLAYING_GAME;
+        dispatch({type: TickerActionTypes.TICK,
+                  time: 0});
+        expect(ProgressStore.getState()).
+            toMatchObject({gameState: GameStates.PLAYING_GAME,
+                           gameSecondsRemaining: 179});
+    });
+
+    it('changes state on game completion', function() {
+        expect(ProgressStore.getState()).
+            toMatchObject({gameState: GameStates.PLAYING_GAME,
+                           gameSecondsRemaining: 179});
+        for (var i = 0; i < 178; i++) {
+            dispatch({type: TickerActionTypes.TICK,
+                      time: i + 1});
+        }
+        expect(Dispatcher.dispatch.mock.calls.length).toBe(0);
+        expect(ProgressStore.getState()).
+            toMatchObject({gameState: GameStates.PLAYING_GAME,
+                           gameSecondsRemaining: 1});
+        dispatch({type: TickerActionTypes.TICK,
+                  time: i + 1});
+        expect(ProgressStore.getState()).
+            toMatchObject({gameState: GameStates.SUBMITTING});
     });
 
 });

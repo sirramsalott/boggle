@@ -13,6 +13,10 @@ class ServerDAO {
         });
     }
 
+    submitGame(game) {
+        return undefined;
+    }
+
 };
 
 export default new ServerDAO();

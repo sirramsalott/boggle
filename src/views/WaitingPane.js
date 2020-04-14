@@ -6,6 +6,9 @@ function prompt(state) {
     case GameStates.WAITING_FOR_GAME:
         return 'Please wait while you are connected to a game';
 
+    case GameStates.SUBMITTING:
+        return 'Submitting your game';
+
     default:
         return 'Not yet implemented';
     }

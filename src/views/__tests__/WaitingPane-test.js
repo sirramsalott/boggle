@@ -23,4 +23,12 @@ describe('WaitingPane', () => {
             toEqual('Please wait while you are connected to a game');
     });
 
+    it('shows correct prompt when submitting', () => {
+        const wrapper = shallow(<WaitingPane
+                                  gameState={GameStates.SUBMITTING}
+                                />);
+        expect(wrapper.find('.waitingPrompt').prop('children')).
+            toEqual('Submitting your game');
+    });
+
 });
