@@ -209,6 +209,12 @@ class Pupil(User):
             return {"gameID": res[0][0],
                     "board": res[0][1]}
 
+    @classmethod
+    def markAsWaiting(cls, pupilID, isWaiting):
+        with BoggleDBCursor() as db:
+            db.execute("UPDATE pupil SET waitingForGame = %s " \
+                       "WHERE pupilID = %s", (str(isWaiting), pupilID))
+
 
 class Teacher(User):
 

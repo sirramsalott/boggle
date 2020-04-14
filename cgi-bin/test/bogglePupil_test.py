@@ -40,6 +40,23 @@ class TestPupil(unittest.TestCase):
         self.assertEqual(g, {"gameID": 1, "board": "rirehgaoesoldivs"})
         self._ensurePlayerDoesNotExist(1, 1)
 
+    def test_markAsWaiting(self):
+        Pupil.markAsWaiting(1, True)
+
+        with BoggleDBCursor() as cur:
+            cur.execute("SELECT waitingForGame FROM pupil " \
+                        "WHERE pupilID=1;")
+            res = cur.fetchone()
+        self.assertEqual(res[0], "True")
+
+        Pupil.markAsWaiting(1, False)
+
+        with BoggleDBCursor() as cur:
+            cur.execute("SELECT waitingForGame FROM pupil " \
+                        "WHERE pupilID=1;")
+            res = cur.fetchone()
+        self.assertEqual(res[0], "False")
+
 
 if __name__ == '__main__':
     warnings.filterwarnings("ignore", category=MySQLdb.Warning)

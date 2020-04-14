@@ -22,9 +22,8 @@ describe('ProgressStore', function() {
         dispatch = Dispatcher.register.mock.calls[0][0];
         ServerDAO = require('../../utils/ServerDAO').default;
 
-        ServerDAO.getWaitingGame = jest.fn(
-            x => ({then: f => f({game: undefined,
-                                 found: false})}));
+        ServerDAO.markAsWaiting =
+            jest.fn(_ => ({then: f => f({'done': false})}));
     });
 
     afterEach(() => {
@@ -33,7 +32,7 @@ describe('ProgressStore', function() {
 
     it('initialises with correct state', function() {
         expect(ProgressStore.getState()).
-            toMatchObject({gameState: GameStates.WAITING_FOR_GAME,
+            toMatchObject({gameState: GameStates.MARKING_AS_WAITING,
                            gameSecondsRemaining: 180});
     });
 
@@ -41,14 +40,34 @@ describe('ProgressStore', function() {
         expect(Dispatcher.register.mock.calls.length).toBe(1);
     });
 
-    it('checks for waiting game on first tick', function() {
+    it('does not check for waiting game before told to', function() {
         dispatch({type: TickerActionTypes.TICK,
                   time: 0});
-        expect(ServerDAO.getWaitingGame.mock.calls.length).toBe(1);
+        expect(ServerDAO.getWaitingGame.mock.calls.length).toBe(0);
+    });
+
+    it('marks as waiting on first tick and dispatches on success', function() {
+        Dispatcher.isDispatching = jest.fn(() => true);
+        ServerDAO.markAsWaiting =
+            jest.fn(_ => ({then: f => f({'done': true})}));
+        dispatch({type: TickerActionTypes.TICK,
+                  time: 0});
+        expect(ServerDAO.markAsWaiting.mock.calls.length).toBe(1);
+        expect(Dispatcher.dispatch.mock.calls.length).toBe(1);
+        expect(Dispatcher.dispatch.mock.calls[0][0]).
+            toMatchObject({type: ProgressActionTypes.START_WAITING_FOR_GAME});
+    });
+
+    it('changes state on marking success', function() {
+        dispatch({type: ProgressActionTypes.START_WAITING_FOR_GAME});
+        expect(ProgressStore.getState()).
+            toMatchObject({gameState: GameStates.WAITING_FOR_GAME});
     });
 
     it('no game dispatched on receiving empty game', function() {
-        Dispatcher.isDispatching = jest.fn(() => true);
+        const fakeGame = {found: false};
+        ServerDAO.getWaitingGame =
+            jest.fn(_ => ({then: f => f(fakeGame)}));
         dispatch({type: TickerActionTypes.TICK,
                   time: 0});
         expect(Dispatcher.dispatch.mock.calls.length).toBe(0);

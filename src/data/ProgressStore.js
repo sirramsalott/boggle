@@ -15,13 +15,24 @@ class ProgressStore extends ReduceStore {
 
     getInitialState() {
         return {
-            gameState: GameStates.WAITING_FOR_GAME,
+            gameState: GameStates.MARKING_AS_WAITING,
             gameSecondsRemaining: 180
         }
     }
 
     handleTick(state, time) {
         switch (state.gameState) {
+        case GameStates.MARKING_AS_WAITING:
+            if (time % 3 == 0) {
+                ServerDAO.markAsWaiting(sessionStorage.getItem('pupilID')).
+                    then((res) => {
+                        if (res.done) {
+                            ProgressActions.waitForGame();
+                        }
+                    });
+            }
+            return state;
+
         case GameStates.WAITING_FOR_GAME:
             if (time % 3 == 0) {
                 ServerDAO.getWaitingGame(sessionStorage.getItem('pupilID')).
@@ -50,6 +61,10 @@ class ProgressStore extends ReduceStore {
         switch (action.type) {
         case TickerActionTypes.TICK:
             return this.handleTick(state, action.time);
+
+        case ProgressActionTypes.START_WAITING_FOR_GAME:
+            return {gameState: GameStates.WAITING_FOR_GAME,
+                    gameSecondsRemaining: state.gameSecondsRemaining};
             
         case ProgressActionTypes.START_GAME:
             return {gameState: GameStates.PLAYING_GAME,

@@ -17,6 +17,16 @@ class ServerDAO {
         return undefined;
     }
 
+    markAsWaiting(pupilID) {
+        return new Promise((resolve, reject) => {
+            $.getJSON('cgi-bin/markAsWaiting.py',
+                      {'pupilID': pupilID},
+                      (data) => {
+                          resolve(data);
+                      });
+        });
+    }
+
 };
 
 export default new ServerDAO();

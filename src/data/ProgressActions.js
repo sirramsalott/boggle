@@ -8,6 +8,11 @@ const Actions = {
             data: game,
         });
     },
+    waitForGame() {
+        PupilDispatcher.dispatch({
+            type: ProgressActionTypes.START_WAITING_FOR_GAME
+        });
+    }
 };
 
 export default Actions;

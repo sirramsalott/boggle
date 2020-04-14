@@ -9,6 +9,9 @@ function prompt(state) {
     case GameStates.SUBMITTING:
         return 'Submitting your game';
 
+    case GameStates.MARKING_AS_WAITING:
+        return 'Marking as waiting';
+
     default:
         return 'Not yet implemented';
     }

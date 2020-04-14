@@ -31,4 +31,12 @@ describe('WaitingPane', () => {
             toEqual('Submitting your game');
     });
 
+    it('shows correct prompt when marking as waiting', () => {
+        const wrapper = shallow(<WaitingPane
+                                  gameState={GameStates.MARKING_AS_WAITING}
+                                />);
+        expect(wrapper.find('.waitingPrompt').prop('children')).
+            toEqual('Marking as waiting');
+    });
+
 });
