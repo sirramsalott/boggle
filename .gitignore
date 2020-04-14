@@ -4,3 +4,4 @@
 scripts/pupil.js
 node_modules
 ./pupil.html
+.\#*

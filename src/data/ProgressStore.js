@@ -15,30 +15,22 @@ class ProgressStore extends ReduceStore {
 
     getInitialState() {
         return {
-            activeGame: undefined,
             gameState: GameStates.WAITING_FOR_GAME
         }
-    }
-
-    getWaitingGame(pupilID) {
-        return ServerDAO.getWaitingGame(pupilID);
     }
 
     handleTick(state, time) {
         switch (state.gameState) {
         case GameStates.WAITING_FOR_GAME:
             if (time % 3 == 0) {
-                const g = this.getWaitingGame(1);
-                if (g) {
-                    return {
-                        activeGame: g,
-                        gameState: GameStates.GAME_LOADED
-                    };
-                } else {
-                    return state;
-                }
+                ServerDAO.getWaitingGame(1).
+                    then((g) => {
+                        if (g && g.found) {
+                            ProgressActions.startGame(g);
+                        }
+                    });
             }
-            
+            return state;
         default:
             return state;
         }
@@ -50,7 +42,7 @@ class ProgressStore extends ReduceStore {
             return this.handleTick(state, action.time);
             
         case ProgressActionTypes.START_GAME:
-            return state;
+            return {gameState: GameStates.PLAYING_GAME};
 
         default:
             return state;

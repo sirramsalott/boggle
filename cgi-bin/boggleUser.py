@@ -3,8 +3,8 @@ import MySQLdb, sys, time, random
 sys.path.append("/var/www/cgi-bin")
 from boggleGame import unPickleWordTree, getFromDatabase, sendToDatabase, existsInDatabase, checkIfWord
 from wordTree import WordNode
+from BoggleDB import BoggleDBCursor
 
-'All classes and functions associated with a human user'
 
 class User(object):
     'Super class for any user'
@@ -195,6 +195,19 @@ class Pupil(User):
     def addTeacher(self, teacherID):
         sendToDatabase("INSERT INTO teaches (pupilID, teacherID) \
                         VALUES ({}, {});".format(self.pupilID, teacherID))
+
+    @classmethod
+    def getWaitingGame(cls, pupilID):
+        with BoggleDBCursor() as db:
+            db.execute("SELECT game.gameID, game.board " \
+                       "FROM game, player " \
+                       "WHERE      game.gameID = player.gameID " \
+                       "  AND   player.pupilID = %s " \
+                       "  AND player.submitted = 'False';", (pupilID,))
+            res = db.fetchall()
+        if res:
+            return {"gameID": res[0][0],
+                    "board": res[0][1]}
 
 
 class Teacher(User):

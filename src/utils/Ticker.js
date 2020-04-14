@@ -4,6 +4,7 @@ class Ticker extends React.Component {
     constructor(props) {
         super(props);
         this.tick = this.tick.bind(this);
+        this.state = {time: 0};
     }
 
     componentDidMount() {
@@ -15,7 +16,8 @@ class Ticker extends React.Component {
     }
 
     tick() {
-        this.props.onTick();
+        this.state.time += 1;
+        this.props.onTick(this.state.time);
     }
 
     render() {

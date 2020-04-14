@@ -10,6 +10,7 @@ function getStores() {
 function getState() {
     return {
         onTick: TickerActions.tick,
+        gameState: ProgressStore.getState().gameState,
     };
 }
 

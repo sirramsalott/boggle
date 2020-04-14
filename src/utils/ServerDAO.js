@@ -1,9 +1,16 @@
 import $ from 'jquery';
+import Promise from 'promise';
 
 class ServerDAO {
 
     getWaitingGame(pupilID) {
-        return undefined;
+        return new Promise((resolve, reject) => {
+            $.getJSON('cgi-bin/getWaitingGame.py',
+                      {'pupilID': pupilID},
+                      (data) => {
+                          resolve(data);
+                      });
+        });
     }
 
 };
