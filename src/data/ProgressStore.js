@@ -81,6 +81,7 @@ class ProgressStore extends ReduceStore {
                 then((a) => {
                     if (a && a.scored) ProgressActions.gameComplete(state.activeGameID);
                 });
+            return state;
 
         default:
             return state;
