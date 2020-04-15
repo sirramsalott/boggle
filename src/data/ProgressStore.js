@@ -5,6 +5,7 @@ import TickerActionTypes from './TickerActionTypes';
 import ProgressActions from './ProgressActions';
 import ServerDAO from '../utils/ServerDAO';
 import GameStates from './GameStates';
+import GameStore from './GameStore';
 
 
 class ProgressStore extends ReduceStore {
@@ -16,7 +17,8 @@ class ProgressStore extends ReduceStore {
     getInitialState() {
         return {
             gameState: GameStates.MARKING_AS_WAITING,
-            gameSecondsRemaining: 180
+            gameSecondsRemaining: 180,
+            activeGameID: undefined,
         }
     }
 
@@ -46,11 +48,25 @@ class ProgressStore extends ReduceStore {
 
         case GameStates.PLAYING_GAME:
             if (state.gameSecondsRemaining == 1) {
+                const words = GameStore.getState().submittedWords;
+                const wordsJoined = words.
+                      reduceRight((acc, val) => val + '#' + acc, '').
+                      slice(0, -1);
+                ServerDAO.submitGame(sessionStorage.getItem('pupilID'),
+                                     state.activeGameID,
+                                     wordsJoined).
+                    then((a) => {
+                        if (a && a.done) {
+                            ProgressActions.scoreGame();
+                        }
+                    });
                 return {gameState: GameStates.SUBMITTING,
-                        gameSecondsRemaining: 0};
+                        gameSecondsRemaining: 0,
+                        activeGameID: state.activeGameID};
             } else {
                 return {gameState: state.gameState,
-                        gameSecondsRemaining: state.gameSecondsRemaining - 1};
+                        gameSecondsRemaining: state.gameSecondsRemaining - 1,
+                        activeGameID: state.activeGameID};
             }
         default:
             return state;
@@ -64,11 +80,13 @@ class ProgressStore extends ReduceStore {
 
         case ProgressActionTypes.START_WAITING_FOR_GAME:
             return {gameState: GameStates.WAITING_FOR_GAME,
-                    gameSecondsRemaining: state.gameSecondsRemaining};
+                    gameSecondsRemaining: state.gameSecondsRemaining,
+                        activeGameID: state.activeGameID};
             
         case ProgressActionTypes.START_GAME:
             return {gameState: GameStates.PLAYING_GAME,
-                    gameSecondsRemaining: state.gameSecondsRemaining};
+                    gameSecondsRemaining: state.gameSecondsRemaining,
+                    activeGameID: action.data.gameID};
 
         default:
             return state;

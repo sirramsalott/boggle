@@ -13,8 +13,16 @@ class ServerDAO {
         });
     }
 
-    submitGame(game) {
-        return undefined;
+    submitGame(pupilID, gameID, wordList) {
+        return new Promise((resolve, reject) => {
+            $.getJSON('cgi-bin/submitGame.py',
+                      {'pupilID': pupilID,
+                       'gameID': gameID,
+                       'wordList': wordList},
+                      (data) => {
+                          resolve(data);
+                      });
+        });
     }
 
     markAsWaiting(pupilID) {

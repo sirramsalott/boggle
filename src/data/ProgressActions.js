@@ -12,7 +12,12 @@ const Actions = {
         PupilDispatcher.dispatch({
             type: ProgressActionTypes.START_WAITING_FOR_GAME
         });
-    }
+    },
+    scoreGame() {
+        PupilDispatcher.dispatch({
+            type: ProgressActionTypes.SCORE_GAME
+        });
+    },
 };
 
 export default Actions;
