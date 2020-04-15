@@ -12,11 +12,12 @@ function getUserID() {
 	      if (data == "None\n") {
 		  loginPrompt.text("No " + userType.toLowerCase() + " found with that username");
 	      } else {
-                  if (userType == "Pupil") {
+                  const isPupil = userType == "Pupil";
+                  if (isPupil) {
                       sessionStorage.setItem("pupilID", data);
                   }
 		  $("form[name='executeLogin']").attr("action",
-						      userType == "Pupil" ?
+						      isPupil ?
 						            "cgi-bin/pupilHomepage.py" :
 						            "cgi-bin/teacherHomepage.py");
 		  $("input[name='successData']").attr("value", data);

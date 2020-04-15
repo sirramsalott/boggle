@@ -2,6 +2,7 @@
 import cgi, sys, json, cgitb
 from boggleUser import Pupil
 cgitb.enable()
+
 def response(pupilID):
     Pupil.markAsWaiting(pupilID, True)
     out = {"done": True}

@@ -47,7 +47,9 @@ class ProgressStore extends ReduceStore {
             return state;
 
         case GameStates.PLAYING_GAME:
-            if (state.gameSecondsRemaining == 1) {
+        case GameStates.SUBMITTING:
+            if (state.gameSecondsRemaining == 1 ||
+                (state.gameSecondsRemaining < 1 && time % 3 == 0)) {
                 const words = GameStore.getState().submittedWords;
                 const wordsJoined = words.
                       reduceRight((acc, val) => val + '#' + acc, '').
@@ -57,7 +59,7 @@ class ProgressStore extends ReduceStore {
                                      wordsJoined).
                     then((a) => {
                         if (a && a.done) {
-                            ProgressActions.scoreGame();
+                            ProgressActions.waitForSubmissions();
                         }
                     });
                 return {gameState: GameStates.SUBMITTING,
@@ -68,6 +70,34 @@ class ProgressStore extends ReduceStore {
                         gameSecondsRemaining: state.gameSecondsRemaining - 1,
                         activeGameID: state.activeGameID};
             }
+
+        case GameStates.WAITING_FOR_SUBMISSIONS:
+            ServerDAO.haveAllPlayersSubmitted(state.activeGameID).
+                then((a) => {
+                    if (a && a.submitted) {
+                        ProgressActions.scoreGame();
+                    }
+                });
+            return state;
+
+        case GameStates.SCORING:
+            ServerDAO.scoreGame(sessionStorage.getItem('pupilID'),
+                                state.activeGameID).
+                then((a) => {
+                    if (a && a.done) {
+                        ProgressActions.waitForScores();
+                    }
+                });
+            return state;
+
+        case GameStates.WAITING_FOR_SCORES:
+            ServerDAO.haveAllPlayersScored(state.activeGameID).
+                then((a) => {
+                    if (a && a.scored) {
+                        ProgressActions.gameComplete(state.activeGameID);
+                    }
+                });
+
         default:
             return state;
         }
@@ -87,6 +117,32 @@ class ProgressStore extends ReduceStore {
             return {gameState: GameStates.PLAYING_GAME,
                     gameSecondsRemaining: state.gameSecondsRemaining,
                     activeGameID: action.data.gameID};
+
+        case ProgressActionTypes.WAIT_FOR_SUBMISSIONS:
+            return {gameState: GameStates.WAITING_FOR_SUBMISSIONS,
+                    gameSecondsRemaining: state.gameSecondsRemaining,
+                    activeGameID: state.activeGameID
+                   };
+
+        case ProgressActionTypes.SCORE_GAME:
+            return {gameState: GameStates.SCORING,
+                    gameSecondsRemaining: state.gameSecondsRemaining,
+                    activeGameID: state.activeGameID};
+
+        case ProgressActionTypes.WAIT_FOR_SCORES:
+            return {gameState: GameStates.WAITING_FOR_SCORES,
+                    gameSecondsRemaining: state.gameSecondsRemaining,
+                    activeGameID: state.activeGameID
+                   };
+
+        case ProgressActionTypes.GAME_COMPLETE:
+            return {gameState: GameStates.GAME_COMPLETE,
+                    gameSecondsRemaining: state.gameSecondsRemaining,
+                    activeGameID: state.activeGameID
+                   };
+
+        case ProgressActionTypes.PLAY_AGAIN:
+            return this.getInitialState();
 
         default:
             return state;

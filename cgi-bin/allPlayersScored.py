@@ -1,11 +1,16 @@
 #!/usr/bin/python
-import cgi, cgitb, sys
-sys.path.append("/var/www/cgi-bin")
+import cgi, cgitb, json
+cgitb.enable()
 from boggleGame import Game
 
-post = cgi.FieldStorage()
+def response(gameID):
+    out = json.dumps({"scored": Game(gameID).allPlayersScored()})
+    return """Status: 200 OK
+Content-Type: application/json
+Content-Length: {}
 
-gameID = int(post["gameID"].value)
-game = Game(gameID)
+{}""".format(len(out), out)
 
-print game.allPlayersScored()
+if __name__ == "__main__":
+    post = cgi.FieldStorage()
+    print response(int(post["gameID"].value))

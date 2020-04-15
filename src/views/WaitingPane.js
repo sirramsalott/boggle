@@ -12,6 +12,15 @@ function prompt(state) {
     case GameStates.MARKING_AS_WAITING:
         return 'Marking as waiting';
 
+    case GameStates.WAITING_FOR_SUBMISSIONS:
+        return 'Waiting for other players to submit';
+
+    case GameStates.SCORING:
+        return 'Scoring your game';
+
+    case GameStates.WAITING_FOR_SCORES:
+        return 'Waiting for the scores';
+
     default:
         return 'Not yet implemented';
     }
@@ -20,6 +29,7 @@ function prompt(state) {
 function WaitingPane(props) {
     switch (props.gameState) {
     case GameStates.PLAYING_GAME:
+    case GameStates.GAME_COMPLETE:
         return null;
 
     default:

@@ -30,11 +30,42 @@ class ServerDAO {
             $.getJSON('cgi-bin/markAsWaiting.py',
                       {'pupilID': pupilID},
                       (data) => {
+                          console.log(data);
                           resolve(data);
                       });
         });
     }
 
+    haveAllPlayersSubmitted(gameID) {
+        return new Promise((resolve, reject) => {
+            $.getJSON('cgi-bin/allPlayersSubmitted.py',
+                      {'gameID': gameID},
+                      (data) => {
+                          resolve(data);
+                      });
+        });
+    }
+
+    scoreGame(pupilID, gameID) {
+        return new Promise((resolve, reject) => {
+            $.getJSON('cgi-bin/scoreGame.py',
+                      {'pupilID': pupilID,
+                       'gameID': gameID},
+                      (data) => {
+                          resolve(data);
+                      });
+        });
+    }
+
+    haveAllPlayersScored(gameID) {
+        return new Promise((resolve, reject) => {
+            $.getJSON('cgi-bin/allPlayersScored.py',
+                      {'gameID': gameID},
+                      (data) => {
+                          resolve(data);
+                      });
+        });
+    }
 };
 
 export default new ServerDAO();

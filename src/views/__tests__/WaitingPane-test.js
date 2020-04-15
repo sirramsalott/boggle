@@ -39,4 +39,28 @@ describe('WaitingPane', () => {
             toEqual('Marking as waiting');
     });
 
+    it('shows correct prompt when waiting for submissions', () => {
+        const wrapper = shallow(<WaitingPane
+                                  gameState={GameStates.WAITING_FOR_SUBMISSIONS}
+                                />);
+        expect(wrapper.find('.waitingPrompt').prop('children')).
+            toEqual('Waiting for other players to submit');
+    });
+
+    it('shows correct prompt when scoring', () => {
+        const wrapper = shallow(<WaitingPane
+                                  gameState={GameStates.SCORING}
+                                />);
+        expect(wrapper.find('.waitingPrompt').prop('children')).
+            toEqual('Scoring your game');
+    });
+
+    it('shows correct prompt when waiting for scores', () => {
+        const wrapper = shallow(<WaitingPane
+                                  gameState={GameStates.WAITING_FOR_SCORES}
+                                />);
+        expect(wrapper.find('.waitingPrompt').prop('children')).
+            toEqual('Waiting for the scores');
+    });
+
 });

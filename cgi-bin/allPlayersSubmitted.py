@@ -1,5 +1,6 @@
 #!/usr/bin/python
-import cgi, json
+import cgi, cgitb, json
+cgitb.enable()
 from boggleGame import Game
 
 def response(gameID):
