@@ -25,25 +25,17 @@ class ProgressStore extends ReduceStore {
     handleTick(state, time) {
         switch (state.gameState) {
         case GameStates.MARKING_AS_WAITING:
-            if (time % 3 == 0) {
-                ServerDAO.markAsWaiting(sessionStorage.getItem('pupilID')).
-                    then((res) => {
-                        if (res.done) {
-                            ProgressActions.waitForGame();
-                        }
-                    });
-            }
+            ServerDAO.markAsWaiting(sessionStorage.getItem('pupilID')).
+                then((res) => {
+                    if (res && res.done) ProgressActions.waitForGame();
+                });
             return state;
 
         case GameStates.WAITING_FOR_GAME:
-            if (time % 3 == 0) {
-                ServerDAO.getWaitingGame(sessionStorage.getItem('pupilID')).
-                    then((g) => {
-                        if (g && g.found) {
-                            ProgressActions.startGame(g);
-                        }
-                    });
-            }
+            ServerDAO.getWaitingGame(sessionStorage.getItem('pupilID')).
+                then((g) => {
+                    if (g && g.found) ProgressActions.startGame(g);
+                });
             return state;
 
         case GameStates.PLAYING_GAME:
@@ -58,9 +50,7 @@ class ProgressStore extends ReduceStore {
                                      state.activeGameID,
                                      wordsJoined).
                     then((a) => {
-                        if (a && a.done) {
-                            ProgressActions.waitForSubmissions();
-                        }
+                        if (a && a.done) ProgressActions.waitForSubmissions();
                     });
                 return {gameState: GameStates.SUBMITTING,
                         gameSecondsRemaining: 0,
@@ -74,9 +64,7 @@ class ProgressStore extends ReduceStore {
         case GameStates.WAITING_FOR_SUBMISSIONS:
             ServerDAO.haveAllPlayersSubmitted(state.activeGameID).
                 then((a) => {
-                    if (a && a.submitted) {
-                        ProgressActions.scoreGame();
-                    }
+                    if (a && a.submitted) ProgressActions.scoreGame();
                 });
             return state;
 
@@ -84,18 +72,14 @@ class ProgressStore extends ReduceStore {
             ServerDAO.scoreGame(sessionStorage.getItem('pupilID'),
                                 state.activeGameID).
                 then((a) => {
-                    if (a && a.done) {
-                        ProgressActions.waitForScores();
-                    }
+                    if (a && a.done) ProgressActions.waitForScores();
                 });
             return state;
 
         case GameStates.WAITING_FOR_SCORES:
             ServerDAO.haveAllPlayersScored(state.activeGameID).
                 then((a) => {
-                    if (a && a.scored) {
-                        ProgressActions.gameComplete(state.activeGameID);
-                    }
+                    if (a && a.scored) ProgressActions.gameComplete(state.activeGameID);
                 });
 
         default:
@@ -111,7 +95,7 @@ class ProgressStore extends ReduceStore {
         case ProgressActionTypes.START_WAITING_FOR_GAME:
             return {gameState: GameStates.WAITING_FOR_GAME,
                     gameSecondsRemaining: state.gameSecondsRemaining,
-                        activeGameID: state.activeGameID};
+                    activeGameID: state.activeGameID};
             
         case ProgressActionTypes.START_GAME:
             return {gameState: GameStates.PLAYING_GAME,
