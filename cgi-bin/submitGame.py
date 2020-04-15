@@ -57,11 +57,7 @@ try:
     player.submit(pupilWordList)
     
     print page%(player.pupilID, player.gameID)
-
-except MemoryError:
-    page = errorPage()
-    print page%("", "An error occurred, probably as a consequence of an unusually large number of people playing. Refresh the page, clicking 'yes' to any prompt which asks whether you would like to repeat actions. If this does not solve the problem, contact the sysadmin with details of what you were doing")
-
+    
 except Exception as e:
     page = errorPage()
     print page%("", str(e))

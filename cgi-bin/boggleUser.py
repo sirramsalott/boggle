@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import MySQLdb, sys, time, random
+import MySQLdb, sys
 sys.path.append("/var/www/cgi-bin")
 from boggleGame import unPickleWordTree, getFromDatabase, sendToDatabase, existsInDatabase, checkIfWord
 from wordTree import WordNode
@@ -289,11 +289,7 @@ class Player(object):
     def submit(self, playerWords):
         'Insert all words in playerWords to the table playerWord'
 
-        try:
-	    wordTree = unPickleWordTree()
-        except MemoryError:
-            time.sleep(random.randint(1, 4))
-            wordTree = unPickleWordTree()
+	wordTree = unPickleWordTree()
         database = MySQLdb.connect("localhost", "joe", "joesql", "boggle")
         #sendToDatabase not used so that LAST_INSERT_ID can run
 
