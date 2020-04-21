@@ -34,6 +34,16 @@ const Actions = {
             gameID
         });
     },
+    playAgain() {
+        PupilDispatcher.dispatch({
+            type: ProgressActionTypes.PLAY_AGAIN
+        });
+    },
+    finishEarly() {
+        PupilDispatcher.dispatch({
+            type: ProgressActionTypes.FINISH_EARLY
+        });  
+    },
 };
 
 export default Actions;

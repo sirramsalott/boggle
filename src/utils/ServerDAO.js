@@ -30,7 +30,6 @@ class ServerDAO {
             $.getJSON('cgi-bin/markAsWaiting.py',
                       {'pupilID': pupilID},
                       (data) => {
-                          console.log(data);
                           resolve(data);
                       });
         });

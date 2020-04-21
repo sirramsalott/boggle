@@ -6,6 +6,7 @@ const ProgressActionTypes = {
     WAITING_FOR_SCORES: 'WAIT_FOR_SCORES',
     GAME_COMPLETE: 'GAME_COMPLETE',
     PLAY_AGAIN: 'PLAY_AGAIN',
+    FINISH_EARLY: 'FINISH_EARLY',
 };
 
 export default ProgressActionTypes;

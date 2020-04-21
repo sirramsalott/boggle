@@ -14,7 +14,7 @@ function getUserID() {
 	      } else {
                   const isPupil = userType == "Pupil";
                   if (isPupil) {
-                      sessionStorage.setItem("pupilID", data);
+                      localStorage.setItem("pupilID", data.slice(0, -1));
                   }
 		  $("form[name='executeLogin']").attr("action",
 						      isPupil ?

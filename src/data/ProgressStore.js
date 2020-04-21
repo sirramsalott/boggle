@@ -25,14 +25,14 @@ class ProgressStore extends ReduceStore {
     handleTick(state, time) {
         switch (state.gameState) {
         case GameStates.MARKING_AS_WAITING:
-            ServerDAO.markAsWaiting(sessionStorage.getItem('pupilID')).
+            ServerDAO.markAsWaiting(localStorage.getItem('pupilID')).
                 then((res) => {
                     if (res && res.done) ProgressActions.waitForGame();
                 });
             return state;
 
         case GameStates.WAITING_FOR_GAME:
-            ServerDAO.getWaitingGame(sessionStorage.getItem('pupilID')).
+            ServerDAO.getWaitingGame(localStorage.getItem('pupilID')).
                 then((g) => {
                     if (g && g.found) ProgressActions.startGame(g);
                 });
@@ -46,7 +46,7 @@ class ProgressStore extends ReduceStore {
                 const wordsJoined = words.
                       reduceRight((acc, val) => val + '#' + acc, '').
                       slice(0, -1);
-                ServerDAO.submitGame(sessionStorage.getItem('pupilID'),
+                ServerDAO.submitGame(localStorage.getItem('pupilID'),
                                      state.activeGameID,
                                      wordsJoined).
                     then((a) => {
@@ -69,7 +69,7 @@ class ProgressStore extends ReduceStore {
             return state;
 
         case GameStates.SCORING:
-            ServerDAO.scoreGame(sessionStorage.getItem('pupilID'),
+            ServerDAO.scoreGame(localStorage.getItem('pupilID'),
                                 state.activeGameID).
                 then((a) => {
                     if (a && a.done) ProgressActions.waitForScores();
@@ -128,6 +128,12 @@ class ProgressStore extends ReduceStore {
 
         case ProgressActionTypes.PLAY_AGAIN:
             return this.getInitialState();
+
+        case ProgressActionTypes.FINISH_EARLY:
+            return {gameState: state.gameState,
+                    gameSecondsRemaining: 1,
+                    activeGameID: state.activeGameID
+                   };
 
         default:
             return state;
