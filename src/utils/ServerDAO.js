@@ -56,9 +56,9 @@ class ServerDAO {
         });
     }
 
-    haveAllPlayersScored(gameID) {
+    getScoreboard(gameID) {
         return new Promise((resolve, reject) => {
-            $.getJSON('cgi-bin/allPlayersScored.py',
+            $.getJSON('cgi-bin/scoreboard.py',
                       {'gameID': gameID},
                       (data) => {
                           resolve(data);

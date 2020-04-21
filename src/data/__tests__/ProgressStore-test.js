@@ -205,26 +205,28 @@ describe('ProgressStore', function() {
     });
 
     it('check for scores on tick, do nothing if not all scored', function() {
-        ServerDAO.haveAllPlayersScored = jest.fn((g) => ({then: f => f({scored: false})}));
+        ServerDAO.getScoreboard = jest.fn((g) => ({then: f => f({available: false})}));
         dispatch({type: TickerActionTypes.TICK,
                   time: 7});
-        expect(ServerDAO.haveAllPlayersScored.mock.calls.length).
+        expect(ServerDAO.getScoreboard.mock.calls.length).
             toBe(1);
-        expect(ServerDAO.haveAllPlayersScored.mock.calls[0][0]).
+        expect(ServerDAO.getScoreboard.mock.calls[0][0]).
             toBe(5);
         expect(Dispatcher.dispatch.mock.calls.length).
             toBe(0);
     });
 
     it('dispatches GameComplete when all players have scored', function() {
-        ServerDAO.haveAllPlayersScored = jest.fn((g) => ({then: f => f({scored: true})}));
+        ServerDAO.getScoreboard = jest.fn((g) => ({then: f => f({available: true,
+                                                                 players: [1, 2, 3]})}));
         dispatch({type: TickerActionTypes.TICK,
                   time: 8});
         expect(Dispatcher.dispatch.mock.calls.length).
             toBe(1);
         expect(Dispatcher.dispatch.mock.calls[0][0]).
             toMatchObject({type: ProgressActionTypes.GAME_COMPLETE,
-                           gameID: 5});
+                           scoreboard: {available: true,
+                                        players: [1, 2, 3]}});
     });
 
     it('changes state on receiving game complete', function() {

@@ -28,10 +28,10 @@ const Actions = {
             type: ProgressActionTypes.WAIT_FOR_SCORES
         });
     },
-    gameComplete(gameID) {
+    gameComplete(scoreboard) {
         PupilDispatcher.dispatch({
             type: ProgressActionTypes.GAME_COMPLETE,
-            gameID
+            scoreboard
         });
     },
     playAgain() {

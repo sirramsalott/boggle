@@ -163,14 +163,15 @@ class Game(object):
 
         return element
 
-
-    def wordTable(self):
-        'Convert the list of words in the board to HTML table'
+    def possibleWords(self):
         result = getFromDatabase("""SELECT word.word FROM word INNER JOIN boardWord
                                     ON word.wordID=boardWord.wordID
                                     WHERE boardWord.gameID=%d ORDER BY word.word;"""%self.gameID)
-        wordList = [row[0] for row in result]
+        return [row[0] for row in result]
 
+    def wordTable(self):
+        'Convert the list of words in the board to HTML table'
+        wordList = self.possibleWords()
         table = "<p>Words available: </p><table class='wordList'>"
 
         for i in range(len(wordList)):
@@ -197,9 +198,9 @@ class Game(object):
             table += "<tr><td class='playerContainer'>%s %s</td></tr>"%(row[0], row[1])
 
         table += "</table>"
-        return table           
+        return table
 
-    
+
 class Face(str):
     'String with Boolean flag to ensure that paths through the board do not use the same dice twice'
     inUse = False

@@ -4,7 +4,8 @@ import GameStates from '../data/GameStates';
 function GameScoreboard(props) {
     if (props.gameState == GameStates.GAME_COMPLETE) {
         return (<div>
-                <input type='button' onClick={props.playAgain} value='Play again'/>
+                  <p>{props.scoreboard.board}</p>
+                  <input type='button' onClick={props.playAgain} value='Play again'/>
                 </div>
                );
     } else {

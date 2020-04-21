@@ -137,4 +137,14 @@ describe('GameStore', () => {
             toMatchObject(GameStore.getInitialState());
     });
 
+    it('updates game on receiving', () => {
+        const scoreboard = {available: true,
+                            board: 'abcdefg',
+                            players: [1, 2, 3]};
+        dispatch({type: ProgressActionTypes.GAME_COMPLETE,
+                  scoreboard});
+        expect(GameStore.getState().scoreboard).
+            toMatchObject(scoreboard);
+    });
+
 });

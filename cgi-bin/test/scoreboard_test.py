@@ -1,28 +1,28 @@
 import unittest
 from mock import MagicMock
-from allPlayersScored import response
+from scoreboard import response
 from boggleGame import Game
 
-class TestAllPlayersScored(unittest.TestCase):
-    def test_allPlayersScored_notScored(self):
+class TestScoreboard(unittest.TestCase):
+    def test_scoreboard_notScored(self):
         Game.__init__ = MagicMock(return_value=None)
         Game.allPlayersScored = MagicMock(return_value=False)
         self.assertEqual(response(1),
 """Status: 200 OK
 Content-Type: application/json
-Content-Length: 16
+Content-Length: 20
 
-{"scored": false}""")
+{"available": false}""")
 
-    def test_allPlayersScored_notScored(self):
+    def test_scoreboard_available(self):
         Game.__init__ = MagicMock(return_value=None)
         Game.allPlayersScored = MagicMock(return_value=True)
         self.assertEqual(response(1),
 """Status: 200 OK
 Content-Type: application/json
-Content-Length: 16
+Content-Length: 19
 
-{"scored": true}""")
+{"available": true}""")
 
 if __name__ == '__main__':
     unittest.main()

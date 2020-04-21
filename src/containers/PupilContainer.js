@@ -25,6 +25,7 @@ function getState() {
         activeDice: GameStore.getState().activeDice,
         playAgain: ProgressActions.playAgain,
         finishEarly: ProgressActions.finishEarly,
+        scoreboard: GameStore.getState().scoreboard,
     };
 }
 
