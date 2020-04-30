@@ -23,5 +23,11 @@ Content-Length: 45
 
 {"found": true, "gameID": 1, "board": "bcde"}""")
 
+    def test_getWaitingGame_playerMarkedNotWaitingIfGameFound(self):
+        Pupil.getWaitingGame = MagicMock(return_value={"gameID": 1})
+        Pupil.isWaiting = MagicMock()
+        response(1)
+        self.assertTrue(Pupil.isWaiting.called)
+
 if __name__ == '__main__':
     unittest.main()

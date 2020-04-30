@@ -6,6 +6,7 @@ def response(pupilID):
     g = Pupil.getWaitingGame(pupilID)
     out = {"found": bool(g)}
     if g:
+        Pupil(pupilID=pupilID).isWaiting(False)
         out.update(g)
     outJ = json.dumps(out)
 
