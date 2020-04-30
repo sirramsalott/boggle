@@ -3,8 +3,7 @@ import GameStates from '../data/GameStates';
 import Dice from './Dice';
 
 function Board(props) {
-    return (<div id='board'>
-              <table>
+    return (<table>
               <tbody>
               {[...Array(4)].map((_, i) =>
                 <tr key={i}>
@@ -16,8 +15,7 @@ function Board(props) {
                 </tr>
               )}
               </tbody>
-              </table>
-            </div>);
+            </table>);
 }
 
 function Timer(props) {
@@ -31,7 +29,7 @@ function Timer(props) {
 
 function GameView(props) {
     if (props.gameState == GameStates.PLAYING_GAME) {
-        return (<div>
+        return (<div id='pageContainer'>
                   <div id='board'>
 
                     <Board {...props} />
@@ -75,19 +73,13 @@ function GameView(props) {
                       Hit enter to submit each word
                     </p>
 
-                    <input
-                      type="text" id="enterWord"
-                      value={props.activeWord}
-                      onKeyDown={e => {
-                         if (e.key === 'Enter') {
-                             props.onWordSubmit();
-                         } else if (e.key === 'Backspace') {
-                             props.onBackspace();
-                         } else {
-                             props.onKeyPress(e.key);
-                         }
-                       }
-                      }
+                    <input type="text" id="enterWord"
+                           value={props.activeWord}
+                           onChange={e => props.wordChange(e.target.value)}
+                           onKeyDown={e => {
+                              if (e.key === 'Enter') {
+                                  props.onWordSubmit();
+                           }}}
                     />
 
                     <ul id='userWords'>

@@ -33,11 +33,18 @@ function WaitingPane(props) {
         return null;
 
     default:
-        return (<div id="waitingPane">
-                  <h2 className="waitingPrompt">
-                    {prompt(props.gameState)}
-                  </h2>
-                </div>);
+        return (<React.Fragment>
+                  <img id="boggleLogo" src="/images/boggleLogo.png"/>
+                  <div className='centreForeground'
+                       id="waitingPane">
+                    <h2 className="prompt">
+                      {prompt(props.gameState)}
+                    </h2>
+                    <h1 id='ellipses'>
+                      {'.'.repeat(props.numEllipses)}
+                    </h1>
+                  </div>
+                </React.Fragment>);
     }
 }
 

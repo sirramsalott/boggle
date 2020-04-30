@@ -9,6 +9,7 @@ function Dice(props) {
                               'sepia(100%) saturate(300%) ' +
                               'brightness(70%) hue-rotate(180deg)' :
                               'none'}}
+              className={props.mini ? 'miniDice' : 'dice'}
             />);
 }
 

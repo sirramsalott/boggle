@@ -8,19 +8,6 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('GameView', () => {
 
-    it('handles keydown in word entry', () => {
-        var onKeyPress = jest.fn();
-        const wrapper = shallow(<GameView
-                                  onKeyPress={onKeyPress}
-                                  gameState={GameStates.PLAYING_GAME}
-                                  wordList={Array()}
-                                />);
-        wrapper.find('#enterWord').simulate('keydown', {key: 'p'});
-        expect(onKeyPress.mock.calls.length).toBe(1);
-        expect(onKeyPress.mock.calls[0][0]).toEqual('p');
-    });
-
-    
     it('handles word submit', () => {
         var onEnter = jest.fn();
         const wrapper = shallow(<GameView
@@ -30,17 +17,6 @@ describe('GameView', () => {
                                 />);
         wrapper.find('#enterWord').simulate('keydown', {key: 'Enter'});
         expect(onEnter.mock.calls.length).toBe(1);
-    });
-
-    it('handles backspace', () => {
-        var onBackspace = jest.fn();
-        const wrapper = shallow(<GameView
-                                  onBackspace={onBackspace}
-                                  gameState={GameStates.PLAYING_GAME}
-                                  wordList={Array()}
-                                />);
-        wrapper.find('#enterWord').simulate('keydown', {key: 'Backspace'});
-        expect(onBackspace.mock.calls.length).toBe(1);
     });
 
     it('clicking yes button submits word', () => {

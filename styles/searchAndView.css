@@ -2,7 +2,7 @@
     float: left;
     margin: 3px;
     text-align: center;
-    display: block;
+    display: inline-block;
     background-color: #222255;
     border: white 4px solid;
     border-radius: 6px;
@@ -20,18 +20,12 @@
     margin: 3px;
 }
 
-.dice {
+.miniDice {
     height: 20px;
     width: 20px;
-    display: inline-block;
-    background-color: #ffff99;
-    border: #dddd77 solid 2px;
-    border-radius: 3px;
-    text-align: center;
-    font-family: Arial;
 }
 
-.board {
+#miniBoard {
     margin: auto;
 }
 
@@ -68,8 +62,8 @@ p {
     color: #ddddff;
 }
 
-.centerForegroundWide {
-    width: 999px !important;
+.centreForegroundWide {
+    overflow: auto;
 }
 
 .onlyMine {
@@ -83,4 +77,9 @@ p {
 #playAgainButton {
     margin: auto;
     display: block;
+}
+
+h6 {
+    color: #ff9900;
+    text-align: center;
 }

@@ -5,9 +5,10 @@ import TickerActions from '../data/TickerActions';
 import GameStore from '../data/GameStore';
 import GameActions from '../data/GameActions';
 import ProgressActions from '../data/ProgressActions';
+import EllipsesStore from '../data/EllipsesStore';
 
 function getStores() {
-    return [ProgressStore, GameStore];
+    return [ProgressStore, GameStore, EllipsesStore];
 }
 
 function getState() {
@@ -17,7 +18,6 @@ function getState() {
         activeBoard: GameStore.getState().activeBoard,
         gameSecondsRemaining: ProgressStore.getState().gameSecondsRemaining,
         activeWord: GameStore.getState().activeWord,
-        onKeyPress: GameActions.keyPress,
         onWordSubmit: GameActions.wordSubmit,
         wordList: GameStore.getState().submittedWords,
         onWordCancel: GameActions.wordCancel,
@@ -26,6 +26,8 @@ function getState() {
         playAgain: ProgressActions.playAgain,
         finishEarly: ProgressActions.finishEarly,
         scoreboard: GameStore.getState().scoreboard,
+        wordChange: GameActions.wordChange,
+        numEllipses: EllipsesStore.getState(),
     };
 }
 

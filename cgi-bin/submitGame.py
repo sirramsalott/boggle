@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import cgi, json
+import cgi, json, cgitb
 from boggleUser import Player
 
 
@@ -24,6 +24,7 @@ Content-Length: {}
 
 
 if __name__ == "__main__":
+    cgitb.enable()
     post = cgi.FieldStorage()
     wordList = post["wordList"].value if "wordList" in post else ""
     print response(pupilID=int(post["pupilID"].value),

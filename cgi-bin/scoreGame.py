@@ -16,6 +16,7 @@ Content-Length: {}
 
 
 if __name__ == "__main__":
+    cgitb.enable()
     post = cgi.FieldStorage()
     print response(pupilID=int(post["pupilID"].value),
                    gameID=int(post["gameID"].value))

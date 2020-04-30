@@ -1,6 +1,7 @@
 import Immutable from 'immutable';
 import ProgressActionTypes from '../ProgressActionTypes';
 import GameActionTypes from '../GameActionTypes';
+import splitBoard from '../../utils/splitBoard';
 
 jest.mock('../PupilDispatcher');
 jest.dontMock('../GameStore');
@@ -27,7 +28,7 @@ describe('GameStore', () => {
     });
 
     it('splits board correctly', () => {
-        const splitted = GameStore.splitBoard('abcdquieeplsdfguh');
+        const splitted = splitBoard('abcdquieeplsdfguh');
         expect(splitted.size).toEqual(16);
         expect(splitted).toEqual(Immutable.List([
             'a',  'b', 'c', 'd',
@@ -49,13 +50,9 @@ describe('GameStore', () => {
                 'f',  'g', 'u', 'h']));
     });
 
-    it('updates active word on keypress', () => {
-        dispatch({type: GameActionTypes.KEY_PRESS,
-                  key: 'p'});
-        expect(GameStore.getState().activeWord).
-            toEqual('p');
-        dispatch({type: GameActionTypes.KEY_PRESS,
-                  key: 'o'});
+    it('udates active word on word change', () => {
+        dispatch({type: GameActionTypes.WORD_CHANGE,
+                  word: 'po'});
         expect(GameStore.getState().activeWord).
             toEqual('po');
     });
@@ -72,16 +69,6 @@ describe('GameStore', () => {
         dispatch({type: GameActionTypes.WORD_SUBMIT});
         expect(GameStore.getState().submittedWords.size).
             toBe(1);
-    });
-
-    it('deletes last letter on backspace', () => {
-        dispatch({type: GameActionTypes.KEY_PRESS,
-                  key: 'p'});
-        dispatch({type: GameActionTypes.KEY_PRESS,
-                  key: 'o'});
-        dispatch({type: GameActionTypes.BACK_SPACE});
-        expect(GameStore.getState().activeWord).
-            toEqual('p');
     });
 
     it('cancels word when prompted', () => {

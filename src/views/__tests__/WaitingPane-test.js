@@ -19,7 +19,7 @@ describe('WaitingPane', () => {
         const wrapper = shallow(<WaitingPane
                                   gameState={GameStates.WAITING_FOR_GAME}
                                 />);
-        expect(wrapper.find('.waitingPrompt').prop('children')).
+        expect(wrapper.find('.prompt').prop('children')).
             toEqual('Please wait while you are connected to a game');
     });
 
@@ -27,7 +27,7 @@ describe('WaitingPane', () => {
         const wrapper = shallow(<WaitingPane
                                   gameState={GameStates.SUBMITTING}
                                 />);
-        expect(wrapper.find('.waitingPrompt').prop('children')).
+        expect(wrapper.find('.prompt').prop('children')).
             toEqual('Submitting your game');
     });
 
@@ -35,7 +35,7 @@ describe('WaitingPane', () => {
         const wrapper = shallow(<WaitingPane
                                   gameState={GameStates.MARKING_AS_WAITING}
                                 />);
-        expect(wrapper.find('.waitingPrompt').prop('children')).
+        expect(wrapper.find('.prompt').prop('children')).
             toEqual('Marking as waiting');
     });
 
@@ -43,7 +43,7 @@ describe('WaitingPane', () => {
         const wrapper = shallow(<WaitingPane
                                   gameState={GameStates.WAITING_FOR_SUBMISSIONS}
                                 />);
-        expect(wrapper.find('.waitingPrompt').prop('children')).
+        expect(wrapper.find('.prompt').prop('children')).
             toEqual('Waiting for other players to submit');
     });
 
@@ -51,7 +51,7 @@ describe('WaitingPane', () => {
         const wrapper = shallow(<WaitingPane
                                   gameState={GameStates.SCORING}
                                 />);
-        expect(wrapper.find('.waitingPrompt').prop('children')).
+        expect(wrapper.find('.prompt').prop('children')).
             toEqual('Scoring your game');
     });
 
@@ -59,7 +59,7 @@ describe('WaitingPane', () => {
         const wrapper = shallow(<WaitingPane
                                   gameState={GameStates.WAITING_FOR_SCORES}
                                 />);
-        expect(wrapper.find('.waitingPrompt').prop('children')).
+        expect(wrapper.find('.prompt').prop('children')).
             toEqual('Waiting for the scores');
     });
 

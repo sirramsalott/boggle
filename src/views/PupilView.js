@@ -6,7 +6,7 @@ import GameScoreboard from './GameScoreboard';
 
 function PupilView(props) {
     return(
-        <div>
+        <div id='pageContainer'>
           <Ticker {...props} />
           <WaitingPane {...props} />
           <GameView {...props} />

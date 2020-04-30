@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import cgi, cgitb, json
-cgitb.enable()
 from boggleGame import Game
 
 def response(gameID):
@@ -12,5 +11,6 @@ Content-Length: {}
 {}""".format(len(out), out)
 
 if __name__ == "__main__":
+    cgitb.enable()
     post = cgi.FieldStorage()
     print response(int(post["gameID"].value))

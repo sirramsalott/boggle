@@ -79,7 +79,9 @@ class ProgressStore extends ReduceStore {
         case GameStates.WAITING_FOR_SCORES:
             ServerDAO.getScoreboard(state.activeGameID).
                 then((a) => {
-                    if (a && a.available) ProgressActions.gameComplete(a);
+                    if (a && a.available) {
+                        ProgressActions.gameComplete(a);
+                    }
                 });
             return state;
 

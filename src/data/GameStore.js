@@ -3,22 +3,11 @@ import PupilDispatcher from './PupilDispatcher';
 import Immutable from 'immutable';
 import ProgressActionTypes from './ProgressActionTypes';
 import GameActionTypes from './GameActionTypes';
+import splitBoard from '../utils/splitBoard';
 
 class GameStore extends ReduceStore {
     constructor() {
         super(PupilDispatcher);
-    }
-
-    splitBoard(s) {
-        var b = Array();
-        [...s].forEach(c => {
-            if (c == 'u' && b.length > 0 && b[b.length - 1] == 'q') {
-                b[b.length - 1] += 'u';
-            } else {
-                b.push(c);
-            }
-        });
-        return Immutable.List(b);
     }
 
     getInitialState() {
@@ -35,7 +24,7 @@ class GameStore extends ReduceStore {
         switch (action.type) {
         case ProgressActionTypes.START_GAME:
             return {submittedWords: state.submittedWords,
-                    activeBoard: this.splitBoard(action.data.board),
+                    activeBoard: splitBoard(action.data.board),
                     activeWord: state.activeWord,
                     activeDice: state.activeDice,
                     scoreboard: state.scoreboard};
@@ -50,27 +39,12 @@ class GameStore extends ReduceStore {
                     activeDice: state.activeDice,
                     scoreboard: action.scoreboard};
 
-        case GameActionTypes.KEY_PRESS:
-            return {submittedWords: state.submittedWords,
-                    activeBoard: state.activeBoard,
-                    activeWord: state.activeWord + action.key,
-                    activeDice: state.activeDice,
-                    scoreboard: state.scoreboard};
-
         case GameActionTypes.WORD_SUBMIT:
             if (state.activeWord.length > 0)
                 return {submittedWords: state.submittedWords.push(state.activeWord),
                         activeBoard: state.activeBoard,
                         activeWord: '',
                         activeDice: Immutable.List(),
-                        scoreboard: state.scoreboard};
-
-        case GameActionTypes.BACK_SPACE:
-            if (state.activeWord.length > 0)
-                return {submittedWords: state.submittedWords,
-                        activeBoard: state.activeBoard,
-                        activeWord: state.activeWord.slice(0, -1),
-                        activeDice: state.activeDice,
                         scoreboard: state.scoreboard};
 
         case GameActionTypes.WORD_CANCEL:
@@ -97,7 +71,15 @@ class GameStore extends ReduceStore {
                         activeWord,
                         activeDice: state.activeDice.slice(0, -1),
                         scoreboard: state.scoreboard};
-            }
+            } else
+                return state;
+
+        case GameActionTypes.WORD_CHANGE:
+            return {submittedWords: state.submittedWords,
+                    activeBoard: state.activeBoard,
+                    activeWord: action.word,
+                    activeDice: state.activeDice,
+                    scoreboard: state.scoreboard};
 
         default:
             return state;

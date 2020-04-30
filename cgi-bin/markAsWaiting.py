@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import cgi, sys, json, cgitb
 from boggleUser import Pupil
-cgitb.enable()
 
 def response(pupilID):
     Pupil.markAsWaiting(pupilID, True)
@@ -14,5 +13,6 @@ Content-Length: {}
 {}""".format(len(outJ), outJ)
 
 if __name__ == '__main__':
+    cgitb.enable()
     post = cgi.FieldStorage()
     print response(int(post['pupilID'].value))
