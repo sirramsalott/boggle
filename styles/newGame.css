@@ -82,6 +82,12 @@
     }
 }
 
+@media screen and (max-width: 768px) {
+    #finishEarly {
+	display: none;
+    }
+}
+
 #activeWordBuildingArea {
     width: 100%;
 }
