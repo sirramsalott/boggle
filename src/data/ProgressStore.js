@@ -9,6 +9,10 @@ import GameStore from './GameStore';
 
 
 class ProgressStore extends ReduceStore {
+
+    noLocalStorageMsg() {
+        return 'Local storage is undefined, meaning something went wrong when logging in. If you have previously played Boggle using the old version, you may need to clear your cache and force a restart of your browser. If this does not fix the issue, contact Joe';
+    }
     
     constructor() {
         super(PupilDispatcher);
@@ -19,6 +23,7 @@ class ProgressStore extends ReduceStore {
             gameState: GameStates.MARKING_AS_WAITING,
             gameSecondsRemaining: 180,
             activeGameID: undefined,
+            errorMsg: undefined,
         }
     }
 
@@ -54,11 +59,13 @@ class ProgressStore extends ReduceStore {
                     });
                 return {gameState: GameStates.SUBMITTING,
                         gameSecondsRemaining: 0,
-                        activeGameID: state.activeGameID};
+                        activeGameID: state.activeGameID,
+                        errorMsg: state.errorMsg};
             } else {
                 return {gameState: state.gameState,
                         gameSecondsRemaining: state.gameSecondsRemaining - 1,
-                        activeGameID: state.activeGameID};
+                        activeGameID: state.activeGameID,
+                        errorMsg: state.errorMsg};
             }
 
         case GameStates.WAITING_FOR_SUBMISSIONS:
@@ -90,7 +97,18 @@ class ProgressStore extends ReduceStore {
         }
     }
 
+    validateLocalStorage() {
+        return localStorage != undefined &&
+               localStorage.getItem('pupilID') != undefined;
+    }
+
     reduce(state, action) {
+        if (!this.validateLocalStorage())
+            return {gameState: GameStates.ERROR,
+                    gameSecondsRemaining: state.gameSecondsRemaining,
+                    activeGameID: state.activeGameID,
+                    errorMsg: this.noLocalStorageMsg()};
+
         switch (action.type) {
         case TickerActionTypes.TICK:
             return this.handleTick(state, action.time);
@@ -98,18 +116,20 @@ class ProgressStore extends ReduceStore {
         case ProgressActionTypes.START_WAITING_FOR_GAME:
             return {gameState: GameStates.WAITING_FOR_GAME,
                     gameSecondsRemaining: state.gameSecondsRemaining,
-                    activeGameID: state.activeGameID};
+                    activeGameID: state.activeGameID,
+                    errorMsg: state.errorMsg};
             
         case ProgressActionTypes.START_GAME:
             return {gameState: GameStates.PLAYING_GAME,
                     gameSecondsRemaining: state.gameSecondsRemaining,
-                    activeGameID: action.data.gameID};
+                    activeGameID: action.data.gameID,
+                        errorMsg: state.errorMsg};
 
         case ProgressActionTypes.WAIT_FOR_SUBMISSIONS:
             return {gameState: GameStates.WAITING_FOR_SUBMISSIONS,
                     gameSecondsRemaining: state.gameSecondsRemaining,
-                    activeGameID: state.activeGameID
-                   };
+                    activeGameID: state.activeGameID,
+                    errorMsg: state.errorMsg};
 
         case ProgressActionTypes.SCORE_GAME:
             return {gameState: GameStates.SCORING,
@@ -119,14 +139,14 @@ class ProgressStore extends ReduceStore {
         case ProgressActionTypes.WAIT_FOR_SCORES:
             return {gameState: GameStates.WAITING_FOR_SCORES,
                     gameSecondsRemaining: state.gameSecondsRemaining,
-                    activeGameID: state.activeGameID
-                   };
+                    activeGameID: state.activeGameID,
+                    errorMsg: state.errorMsg};
 
         case ProgressActionTypes.GAME_COMPLETE:
             return {gameState: GameStates.GAME_COMPLETE,
                     gameSecondsRemaining: state.gameSecondsRemaining,
-                    activeGameID: state.activeGameID
-                   };
+                    activeGameID: state.activeGameID,
+                    errorMsg: state.errorMsg};
 
         case ProgressActionTypes.PLAY_AGAIN:
             return this.getInitialState();
@@ -134,8 +154,8 @@ class ProgressStore extends ReduceStore {
         case ProgressActionTypes.FINISH_EARLY:
             return {gameState: state.gameState,
                     gameSecondsRemaining: 1,
-                    activeGameID: state.activeGameID
-                   };
+                    activeGameID: state.activeGameID,
+                    errorMsg: state.errorMsg};
 
         default:
             return state;

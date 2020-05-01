@@ -30,6 +30,7 @@ function WaitingPane(props) {
     switch (props.gameState) {
     case GameStates.PLAYING_GAME:
     case GameStates.GAME_COMPLETE:
+    case GameStates.ERROR:
         return null;
 
     default:

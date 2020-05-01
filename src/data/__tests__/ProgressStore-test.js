@@ -25,7 +25,8 @@ describe('ProgressStore', function() {
         dispatch = Dispatcher.register.mock.calls[0][0];
         ServerDAO = require('../../utils/ServerDAO').default;
         GameStore = require('../../data/GameStore').default;
-
+        ProgressStore.validateLocalStorage =
+            jest.fn(() => true);
         ServerDAO.markAsWaiting =
             jest.fn(_ => ({then: f => f({'done': false})}));
     });

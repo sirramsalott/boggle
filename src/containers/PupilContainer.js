@@ -28,6 +28,7 @@ function getState() {
         scoreboard: GameStore.getState().scoreboard,
         wordChange: GameActions.wordChange,
         numEllipses: EllipsesStore.getState(),
+        errorMsg: ProgressStore.getState().errorMsg,
     };
 }
 

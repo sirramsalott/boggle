@@ -3,6 +3,7 @@ import Ticker from '../utils/Ticker';
 import WaitingPane from './WaitingPane';
 import GameView from './GameView';
 import GameScoreboard from './GameScoreboard';
+import ErrorPane from './ErrorPane';
 
 function PupilView(props) {
     return(
@@ -11,6 +12,7 @@ function PupilView(props) {
           <WaitingPane {...props} />
           <GameView {...props} />
           <GameScoreboard {...props} />
+          <ErrorPane {...props} />
         </div>
     );
 }

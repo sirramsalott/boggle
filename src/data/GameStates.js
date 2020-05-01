@@ -7,6 +7,7 @@ const GameStates = {
     SCORING: 'SCORING',
     WAITING_FOR_SCORES: 'WAITING_FOR_SCORES',
     GAME_COMPLETE: 'GAME_COMPLETE',
+    ERROR: 'ERROR',
 };
 
 export default GameStates;
