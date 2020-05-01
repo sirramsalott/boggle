@@ -18,7 +18,7 @@ function getUserID() {
                   }
 		  $("form[name='executeLogin']").attr("action",
 						      isPupil ?
-						            "cgi-bin/pupilHomepage.py" :
+						            "pupil.html" :
 						            "cgi-bin/teacherHomepage.py");
 		  $("input[name='successData']").attr("value", data);
 
