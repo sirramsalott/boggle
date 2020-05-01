@@ -22,7 +22,9 @@ function Timer(props) {
     const mins = Math.floor(props.gameSecondsRemaining / 60);
     const secs = props.gameSecondsRemaining % 60;
 
-    return <div id='timer'>
+    return <div id='timer'
+                style={props.gameSecondsRemaining < 21 ?
+                       {backgroundColor: 'red'} : {}}>
              0{mins} : {(secs < 10 ? '0' : '')}{secs}
            </div>;
 }
