@@ -11,7 +11,7 @@ import GameStore from './GameStore';
 class ProgressStore extends ReduceStore {
 
     noLocalStorageMsg() {
-        return 'Local storage is undefined, meaning something went wrong when logging in. If you have previously played Boggle using the old version, you may need to clear your cache and force a restart of your browser. If this does not fix the issue, contact Joe';
+        return 'Local storage is undefined, meaning something went wrong when logging in. If you have previously played Boggle using the old version, you may need to clear your cache and force a restart of your browser. If you are not on a mobile go back to the homepage (click on the Boggle logo), refresh the page a couple of times and then try logging in again. If this does not fix the issue, contact Joe';
     }
     
     constructor() {

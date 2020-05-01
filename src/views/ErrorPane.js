@@ -5,7 +5,9 @@ function ErrorPane(props) {
     switch (props.gameState) {
     case GameStates.ERROR:
         return (<React.Fragment>
-                  <img id="boggleLogo" src="/images/boggleLogo.png"/>
+                  <a href='/'>
+                    <img id="boggleLogo" src="/images/boggleLogo.png"/>
+                  </a>
                   <div className='centreForeground'>
                     <h3>An error occurred</h3>
                     <p id='errorMessage'>{props.errorMsg}</p>
