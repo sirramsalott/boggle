@@ -36,6 +36,11 @@ page = """Content-type: text/html
           Teacher Homepage: ID %d
         </h1>
 
+        <p>
+          Please refresh the pupil table before starting a game,
+          just to make sure all your pupils are really there
+        </p>
+
         <button name="refresh" style="margin: auto;">Refresh pupil table</button><br>
  
         <table id="pupilTable">

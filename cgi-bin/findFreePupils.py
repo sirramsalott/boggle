@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import cgi, cgitb, sys, MySQLdb
+import cgi, cgitb, sys, MySQLdb, time
 cgitb.enable()
 sys.path.append("/var/www/cgi-bin")
 from boggleUser import Pupil
@@ -11,10 +11,12 @@ try:
     teacherID = post["teacherID"].value
     
     result = getFromDatabase("""SELECT pupil.pupilID FROM pupil, teaches
-                                WHERE teaches.teacherID='%s'
+                                WHERE teaches.teacherID='{}'
                                 AND pupil.pupilID=teaches.pupilID
                                 AND waitingForGame='True'
-                                ORDER BY pupil.pupilID;"""%teacherID)
+                                AND {} - lastSeen < 3
+                                ORDER BY pupil.pupilID;""".
+                             format(teacherID, time.time()))
     pupils = [Pupil(pupilID=row[0]) for row in result]
     
     pupilsTable = """<tr id='pupilTable'>

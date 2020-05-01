@@ -65,6 +65,11 @@ class ServerDAO {
                       });
         });
     }
+
+    stillHere(pupilID) {
+        $.post('cgi-bin/stillHere.py',
+               {'pupilID': pupilID});
+    }
 };
 
 export default new ServerDAO();

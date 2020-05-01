@@ -29,6 +29,7 @@ describe('ProgressStore', function() {
             jest.fn(() => true);
         ServerDAO.markAsWaiting =
             jest.fn(_ => ({then: f => f({'done': false})}));
+        ServerDAO.stillHere = jest.fn();
     });
 
     afterEach(() => {
@@ -39,6 +40,12 @@ describe('ProgressStore', function() {
         expect(ProgressStore.getState()).
             toMatchObject({gameState: GameStates.MARKING_AS_WAITING,
                            gameSecondsRemaining: 180});
+    });
+
+    it('pings stillHere on tick', function() {
+        dispatch({type: TickerActionTypes.TICK,
+                  time: 12});
+        expect(ServerDAO.stillHere.mock.calls.length).toBe(1)
     });
 
     it('does not check for waiting game before told to', function() {

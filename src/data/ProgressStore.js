@@ -28,6 +28,7 @@ class ProgressStore extends ReduceStore {
     }
 
     handleTick(state, time) {
+        ServerDAO.stillHere(localStorage.getItem('pupilID'));
         switch (state.gameState) {
         case GameStates.MARKING_AS_WAITING:
             ServerDAO.markAsWaiting(localStorage.getItem('pupilID')).
