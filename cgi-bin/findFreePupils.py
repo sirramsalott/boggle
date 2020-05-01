@@ -14,7 +14,8 @@ try:
                                 WHERE teaches.teacherID='{}'
                                 AND pupil.pupilID=teaches.pupilID
                                 AND waitingForGame='True'
-                                AND {} - lastSeen < 3
+                                AND ({} - lastSeen < 3
+                                     OR lastSeen = 0)
                                 ORDER BY pupil.pupilID;""".
                              format(teacherID, time.time()))
     pupils = [Pupil(pupilID=row[0]) for row in result]

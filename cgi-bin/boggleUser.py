@@ -78,6 +78,7 @@ class Pupil(User):
         if username and forename and surname: #Create new Pupil from cgi.FieldStorage
             self.waitingForGame = False
             self.pupilID = pupilID #None, but added for integrity of objects
+            self.lastSeen = 0
             super(Pupil, self).__init__(forename, surname, username)
 
         else: #Create Pupil from database
