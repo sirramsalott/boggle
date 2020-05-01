@@ -5,6 +5,7 @@ from boggleUser import Player, Pupil
 
 def response(gameID):
     g = Game(gameID)
+    g.markAbsentPlayersScored()
     available = g.allPlayersScored()
     out = {"available": available}
     if available:

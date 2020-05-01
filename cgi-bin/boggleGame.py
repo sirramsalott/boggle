@@ -1,8 +1,9 @@
 #!/usr/bin/python
 from random import randint
-import MySQLdb, datetime, cPickle, sys
+import MySQLdb, datetime, cPickle, sys, time
 sys.path.append("/var/www/cgi-bin")
 from wordTree import WordNode
+from BoggleDB import BoggleDBCursor
 
 'Contains functions and classes associated with playing the game, and general purpose functions for the database'
 
@@ -199,6 +200,35 @@ class Game(object):
 
         table += "</table>"
         return table
+
+    def markAbsentPlayersSubmitted(self):
+        with BoggleDBCursor() as cur:
+            cur.execute("SELECT pupil.pupilID " \
+                        "FROM player, pupil " \
+                        "WHERE player.gameID = %s " \
+                        "  AND player.pupilID = pupil.pupilID " \
+                        "  AND %s - pupil.lastSeen > 25 " \
+                        "  AND player.submitted = 'False'",
+                        (self.gameID, time.time()))
+            res = cur.fetchall()
+            for r in res:
+                cur.execute("UPDATE player SET submitted='True' " \
+                            "WHERE pupilID = %s AND gameID = %s",
+                            (r[0], self.gameID))
+
+    def markAbsentPlayersScored(self):
+        with BoggleDBCursor() as cur:
+            cur.execute("SELECT pupil.pupilID FROM player, pupil " \
+                        "WHERE player.gameID = %s " \
+                        "  AND player.pupilID = pupil.pupilID " \
+                        "  AND %s - pupil.lastSeen > 25 " \
+                        "  AND player.score is null",
+                        (self.gameID, time.time()))
+            res = cur.fetchall()
+            for r in res:
+                cur.execute("UPDATE player SET score = 0 " \
+                            "WHERE pupilID = %s AND gameID = %s",
+                            (r[0], self.gameID))
 
 
 class Face(str):

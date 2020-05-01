@@ -3,7 +3,9 @@ import cgi, cgitb, json
 from boggleGame import Game
 
 def response(gameID):
-    out = json.dumps({"submitted": Game(gameID).allPlayersSubmitted()})
+    g = Game(gameID)
+    g.markAbsentPlayersSubmitted()
+    out = json.dumps({"submitted": g.allPlayersSubmitted()})
     return """Status: 200 OK
 Content-Type: application/json
 Content-Length: {}

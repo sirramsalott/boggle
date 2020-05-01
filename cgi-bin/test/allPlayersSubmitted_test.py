@@ -24,5 +24,10 @@ Content-Length: 19
 
 {"submitted": true}""")
 
+    def test_absentPlayersMarked(self):
+        Game.markAbsentPlayersSubmitted = MagicMock()
+        response(1)
+        self.assertTrue(Game.markAbsentPlayersSubmitted.called)
+
 if __name__ == '__main__':
     unittest.main()
