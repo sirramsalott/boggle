@@ -46,7 +46,8 @@ try:
     
     else:
         raise Exception("No game selected")
-    
+
+    body = ""
     if "HTTP_COOKIE" in os.environ:
         cookieString = os.environ.get("HTTP_COOKIE")
         cookie = Cookie.SimpleCookie()
@@ -56,14 +57,8 @@ try:
             teacherID = int(cookie["teacherID"].value)
             body = teacherMenuBar()
 
-        else:
-            raise Exception("A cookie expired")
-
     elif not "pupilID" in post:
         raise Exception("You do not have permission to view this page")
-
-    else:
-        body = ""
 
     game = Game(gameID)
     
