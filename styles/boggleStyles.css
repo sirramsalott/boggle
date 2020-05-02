@@ -198,6 +198,19 @@ button:hover {
     background-color: 1919ba;
 }
 
+input[name='playAgain'] {
+    font-size: 15px;
+    display: block;
+    background-color: #5555ff;
+    color: white;
+    border: white 4px solid;
+    border-radius: 8px;
+}
+
+input[name='playAgain']:hover {
+    background-color: 1919ba;
+}
+
 form[name="signUp"] {
     font-size: 15px;
     text-align: center;
@@ -214,10 +227,20 @@ input[name="word"] {
     height: 80px;
 }
 
-
 #addWordSuccess {
     color: white;
     font-size: 18px;
     display: block;
     width: 200px;
+}
+
+#ellipses {
+    position: absolute;
+    bottom: 0;
+    left: 45%;
+}
+
+#waitingPane {
+    height: 300px;
+    position: relative;
 }

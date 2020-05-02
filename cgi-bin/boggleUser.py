@@ -1,10 +1,10 @@
 #!/usr/bin/python
-import MySQLdb, sys, time, random
+import MySQLdb, sys
 sys.path.append("/var/www/cgi-bin")
 from boggleGame import unPickleWordTree, getFromDatabase, sendToDatabase, existsInDatabase, checkIfWord
 from wordTree import WordNode
+from BoggleDB import BoggleDBCursor
 
-'All classes and functions associated with a human user'
 
 class User(object):
     'Super class for any user'
@@ -78,6 +78,7 @@ class Pupil(User):
         if username and forename and surname: #Create new Pupil from cgi.FieldStorage
             self.waitingForGame = False
             self.pupilID = pupilID #None, but added for integrity of objects
+            self.lastSeen = 0
             super(Pupil, self).__init__(forename, surname, username)
 
         else: #Create Pupil from database
@@ -196,6 +197,25 @@ class Pupil(User):
         sendToDatabase("INSERT INTO teaches (pupilID, teacherID) \
                         VALUES ({}, {});".format(self.pupilID, teacherID))
 
+    @classmethod
+    def getWaitingGame(cls, pupilID):
+        with BoggleDBCursor() as db:
+            db.execute("SELECT game.gameID, game.board " \
+                       "FROM game, player " \
+                       "WHERE      game.gameID = player.gameID " \
+                       "  AND   player.pupilID = %s " \
+                       "  AND player.submitted = 'False';", (pupilID,))
+            res = db.fetchall()
+        if res:
+            return {"gameID": res[0][0],
+                    "board": res[0][1]}
+
+    @classmethod
+    def markAsWaiting(cls, pupilID, isWaiting):
+        with BoggleDBCursor() as db:
+            db.execute("UPDATE pupil SET waitingForGame = %s " \
+                       "WHERE pupilID = %s", (str(isWaiting), pupilID))
+
 
 class Teacher(User):
 
@@ -270,11 +290,7 @@ class Player(object):
     def submit(self, playerWords):
         'Insert all words in playerWords to the table playerWord'
 
-        try:
-	    wordTree = unPickleWordTree()
-        except MemoryError:
-            time.sleep(random.randint(1, 4))
-            wordTree = unPickleWordTree()
+	wordTree = unPickleWordTree()
         database = MySQLdb.connect("localhost", "joe", "joesql", "boggle")
         #sendToDatabase not used so that LAST_INSERT_ID can run
 

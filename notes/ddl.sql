@@ -25,6 +25,7 @@ CREATE TABLE pupil
   surname VARCHAR(16),
   username VARCHAR(16) UNIQUE NOT NULL,
   waitingForGame ENUM("True", "False"),
+  lastSeen DOUBLE,
   PRIMARY KEY (pupilID)
 );
 
