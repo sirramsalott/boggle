@@ -4,6 +4,7 @@
    "description": "Boggle",
    "scripts": {
       "build": "webpack --mode development",
+      "buildprod": "webpack --mode production",
       "watch": "webpack --mode development --watch",
       "test": "jest"
    },
