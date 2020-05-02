@@ -464,8 +464,8 @@ def teacherMenuBar():
                       <input type='text' name='pupilSearchData'>
                       Search By:
                       <select name='pupilDataType'>
-                        <option value='pupilID' selected>Pupil ID</option><!--DEFAULT VALUE-->
-                        <option value='forename'>Forename</option>
+                        <option value='pupilID'>Pupil ID</option><!--DEFAULT VALUE-->
+                        <option value='forename' selected>Forename</option>
                         <option value='surname'>Surname</option>
                       </select>
                       <input type='submit' value='Submit'>
