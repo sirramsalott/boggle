@@ -23,7 +23,7 @@ page = """Content-type: text/html
   <body>
     <div id='pageContainer'>
 
-      <a href="/">
+      <a href="/bgogle.html">
         <img id="boggleLogo" src="../images/boggleLogo.png">
       </a>
 

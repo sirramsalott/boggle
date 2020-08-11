@@ -24,7 +24,7 @@ page = """Content-type: text/html
 
     <div id="pageContainer" style="text-align: center;">
 
-      <a href="/">
+      <a href="/boggle.html">
         <img id="boggleLogo" src="../images/boggleLogo.png">
       </a> 
     
