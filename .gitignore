@@ -103,3 +103,5 @@ cgi-bin/welcome.py
 cgi-bin/welcome1.py
 cgi-bin/xml.py
 embedmap.html
+script.js
+tooltip.js
